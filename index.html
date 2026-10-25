@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Permis belge : le cours</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@700&display=swap">
+<style>
+:root{--bg:#e9edf2;--fg:#1c2128;--mut:#5a6572;--cd:#fff;--bd:#b8c2cf;--bl:#0b57a4;--yl:#f2c200;--ok:#12703a;--okb:#e3f5ea;--ko:#b3202c;--kob:#fde8ea;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--fg:#e8ecf1;--mut:#9ba6b3;--cd:#1e232b;--bd:#364050;--bl:#2f7fd6;--ok:#4fd388;--okb:#12301f;--ko:#ff7a85;--kob:#3a1a1e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171c;--fg:#e8ecf1;--mut:#9ba6b3;--cd:#1e232b;--bd:#364050;--bl:#2f7fd6;--ok:#4fd388;--okb:#12301f;--ko:#ff7a85;--kob:#3a1a1e;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 "Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:640px;margin:0 auto;padding:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Barlow",system-ui,sans-serif;line-height:1.15;margin:0}
+h1{font-size:2.3rem}h2{font-size:1.6rem;margin:14px 0 10px}h3{font-size:1.25rem;margin:20px 0 6px}
+header{background:var(--bl);color:#fff;border-radius:10px;padding:22px 24px;margin-bottom:16px;box-shadow:inset 0 0 0 3px var(--bl),inset 0 0 0 6px #fff}
+header p{margin:6px 0 0}
+.mut{color:var(--mut);font-size:.92rem;margin:14px 0 0}
+button{font:inherit;color:var(--fg);cursor:pointer}
+button:focus-visible{outline:3px solid var(--bl);outline-offset:2px}
+.item,.chip,.opt,.go{width:100%;text-align:left;padding:14px 16px;border:2px solid var(--bd);background:var(--cd);border-radius:8px;margin:8px 0}
+.item{display:flex;gap:14px;align-items:center;border-left:8px solid var(--bl)}
+.item b{font-family:"Barlow Condensed",sans-serif;font-size:1.5rem;min-width:1.4em;color:var(--bl)}
+.item span{flex:1;font-weight:600}
+.item em{font-style:normal;color:var(--ok);font-weight:600}
+.back{background:none;border:0;padding:6px 0;color:var(--bl);font-weight:600}
+.go{background:var(--bl);border-color:var(--bl);color:#fff;text-align:center;font-weight:600;margin-top:16px}
+.opt:disabled{color:var(--fg);opacity:1;cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.ko{border-color:var(--ko);background:var(--kob)}
+.note{padding:12px 14px;border-radius:6px;margin:14px 0 0}
+.y{background:var(--okb)}.n{background:var(--kob)}
+.bar{height:10px;background:#2b3038;border-radius:5px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--yl)}
+.signs{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0}
+figure{margin:0;width:84px;text-align:center}
+figcaption{font-size:.82rem;line-height:1.2;color:var(--mut)}
+li{margin:8px 0}
+</style>
+</head>
+<body>
+<main class="w">
+<header><h1>Permis belge</h1><p>Le cours pour débutants : on explique, puis tu t'entraînes.</p></header>
+<div id="app"></div>
+</main>
+<script>
+const R="#d1202f",sg=(b,l)=>`<figure><svg viewBox="0 0 60 60" width="64" height="64" aria-hidden="true">${b}</svg><figcaption>${l}</figcaption></figure>`;
+const SIGNS=`<div class="signs">`+
+sg(`<path d="M30 7 55 52H5Z" fill="#fff" stroke="${R}" stroke-width="6" stroke-linejoin="round"/>`,"Danger")+
+sg(`<path d="M5 8H55L30 53Z" fill="#fff" stroke="${R}" stroke-width="6" stroke-linejoin="round"/>`,"Cédez le passage")+
+sg(`<polygon points="19,4 41,4 56,19 56,41 41,56 19,56 4,41 4,19" fill="${R}"/><text x="30" y="35" font-size="14" font-weight="700" text-anchor="middle" fill="#fff" font-family="sans-serif">STOP</text>`,"Stop")+
+sg(`<circle cx="30" cy="30" r="25" fill="#fff" stroke="${R}" stroke-width="6"/>`,"Interdiction ou restriction")+
+sg(`<circle cx="30" cy="30" r="27" fill="#0b57a4"/><path d="M30 46V15M30 14 20 26M30 14 40 26" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,"Obligation")+
+sg(`<path d="M30 3 57 30 30 57 3 30Z" fill="#fff"/><path d="M30 8 52 30 30 52 8 30Z" fill="#f2c200"/>`,"Route prioritaire")+
+`</div>`;
+
+const L=[
+["Les types de véhicules",`
+<p>Avant les règles, apprends qui roule sur la route et avec quoi. Il y a quatre grandes familles.</p>
+<h3>Engins de déplacement non motorisés</h3>
+<ul>
+<li>Ce ne sont pas des cycles, ils n'ont pas de moteur et avancent grâce à la force des muscles : fauteuil roulant manuel, rollers, trottinette, skateboard, monocycle.</li>
+<li>S'ils avancent à l'allure du <b>pas</b> : assimilés à des piétons. Plus vite que le pas : assimilés à des cyclistes.</li>
+<li>Exemple : un skateur débutant qui avance au pas est un piéton. Tu lui cèdes le passage s'il veut traverser sur un passage pour piétons.</li>
+</ul>
+<h3>Engins de déplacement motorisés</h3>
+<ul>
+<li>Tout engin qui roule à <b>25 km/h maximum</b> : trottinette motorisée, fauteuil roulant électrique, scooter pour personnes à mobilité réduite, gyropode.</li>
+<li>Ils ne sont pas des véhicules à moteur : leurs utilisateurs sont assimilés aux <b>cyclistes</b>. Exception : une personne à mobilité réduite qui avance au pas avec son fauteuil motorisé est assimilée à un piéton.</li>
+</ul>
+<h3>Cycles</h3>
+<ul>
+<li>Deux roues ou plus, propulsé par des pédales ou des manivelles, sans moteur. Les véhicules à trois ou quatre roues d'au plus 1 m de large sont assimilés aux cycles.</li>
+<li>Un vélo à assistance électrique, 25 km/h maximum, est un cycle. Avec une remorque, il reste un cycle.</li>
+</ul>
+<h3>Véhicules à moteur</h3>
+<ul>
+<li>Ils ont un moteur et se déplacent par leur propre force : cyclomoteur, moto, voiture, camion.</li>
+<li>Un <b>speed pedelec</b> (45 km/h maximum) est un cyclomoteur de classe B.</li>
+<li>Il faut un permis. Ce cours concerne les véhicules du <b>permis B</b>.</li>
+</ul>`,[
+["Un skateur débutant avance à l'allure du pas. Il est assimilé à…",["un piéton","un cycliste","un véhicule à moteur"],0,"Au pas, les engins non motorisés sont assimilés à des piétons."],
+["Une trottinette motorisée limitée à 25 km/h est assimilée à…",["un cycliste","une moto","un piéton"],0,"Les engins motorisés jusqu'à 25 km/h sont assimilés aux cyclistes."],
+["Un vélo à assistance électrique de 25 km/h maximum est…",["un cycle","un cyclomoteur","un véhicule à moteur"],0,"Il reste un cycle."],
+["Un speed pedelec (45 km/h maximum) est considéré comme…",["un cyclomoteur de classe B","un vélo","une moto"],0,"Un speed pedelec est un cyclomoteur de classe B."],
+["Une personne en fauteuil roulant motorisé avance au pas. Elle est assimilée à…",["un piéton","un cycliste","un conducteur de véhicule à moteur"],0,"C'est l'exception prévue pour les personnes à mobilité réduite."]]],
+
+["Le permis de conduire",`
+<h3>Le permis B</h3>
+<p>Pour conduire une voiture, il faut un permis de catégorie B, provisoire ou définitif. Sans le vrai permis, tu ne conduis pas.</p>
+<h3>Le parcours</h3>
+<ol>
+<li><b>Apprendre la théorie</b> : sur un site web, avec des manuels, ou en suivant 12 heures de cours dans une auto-école.</li>
+<li><b>Examen théorique</b> : dans un centre d'examen, dès <b>17 ans</b>. Il faut obtenir <b>41 sur 50</b>. En cas de réussite, tu reçois un « document de demande de permis provisoire », valable <b>3 ans</b>. Avec ce document seul, tu ne peux pas conduire. Après deux échecs : 12 heures de cours dans une auto-école agréée.</li>
+<li><b>Permis provisoire</b> : avec ce document, tu le demandes à la commune et tu apprends à conduire dès 17 ans, avec un guide (permis provisoire de 36 mois) ou un moniteur d'auto-école.</li>
+<li><b>Conduire seul pour t'exercer</b> : à 18 ans, avec 20 heures de cours pratiques dans une auto-école agréée et une attestation de compétence, tu peux demander à la commune un permis provisoire de 18 mois, sans guide. Il ne s'obtient qu'une seule fois.</li>
+<li><b>Examen pratique</b> : dès 18 ans, après avoir acquis assez d'expérience. En cas de réussite : un « document de demande de permis » pour demander le permis définitif à la commune. Après deux échecs : 6 heures de leçons pratiques en auto-école agréée.</li>
+<li><b>Permis définitif</b> : au format d'une carte bancaire, valable <b>10 ans</b>, renouvelé à la commune sans nouvel examen.</li>
+</ol>
+<h3>Quand le permis provisoire B ne permet pas de conduire</h3>
+<ul>
+<li>Le vendredi, le samedi et le dimanche soir, de 22 h jusqu'à 6 h le lendemain matin.</li>
+<li>La veille d'un jour férié de 22 h à 6 h, et le soir d'un jour férié de 22 h jusqu'à 6 h le lendemain.</li>
+</ul>
+<h3>À savoir</h3>
+<ul>
+<li>Perte ou vol du permis : déclaration à la police (en cas de perte, aussi possible à la commune). Sans véritable permis, tu ne conduis pas.</li>
+<li>Mains sur le volant à 9 h 15 ou 10 h 10, jamais les pouces à l'intérieur : risque de blessure à l'ouverture de l'airbag.</li>
+<li>Un médecin te juge inapte à conduire : tu préviens la commune dans les 4 jours et tu rends ton permis (week-ends et jours fériés non comptés).</li>
+<li>Épilepsie : en principe, interdiction de conduire. Après une première crise : 6 mois d'interdiction. Un an sans crise après traitement, plus l'avis d'un médecin spécialisé, permettent de retrouver le droit de conduire. Nouvelle crise : 1 an d'interdiction.</li>
+</ul>`,[
+["Combien de points faut-il pour réussir l'examen théorique ?",["41 sur 50","30 sur 50","45 sur 50"],0,"Il faut obtenir 41 sur 50."],
+["À partir de quel âge peut-on passer l'examen théorique du permis B ?",["17 ans","16 ans","18 ans"],0,"Dès 17 ans."],
+["Combien de temps le document de demande de permis provisoire est-il valable ?",["3 ans","1 an","18 mois"],0,"Il est valable 3 ans."],
+["Avec le seul document de demande de permis provisoire, tu peux…",["ne pas encore conduire : il faut le permis provisoire de la commune","conduire accompagné","conduire seul"],0,"Ce document seul ne permet pas de conduire."],
+["Le permis définitif est valable…",["10 ans","5 ans","à vie"],0,"10 ans, renouvelable à la commune sans examen."],
+["Avec un permis provisoire, quand est-il interdit de conduire ?",["Vendredi, samedi et dimanche soir, de 22 h à 6 h","Tous les week-ends en entier","Seulement les jours fériés"],0,"De 22 h à 6 h les vendredis, samedis et dimanches soir, et autour des jours fériés."],
+["Où places-tu les mains sur le volant ?",["À 9 h 15 ou à 10 h 10","À midi","Une seule main en bas"],0,"Les pouces ne se placent jamais à l'intérieur du volant."]]],
+
+["Les bases de la route",`
+<p>Commençons par l'essentiel. En Belgique, <b>on roule à droite</b> et <b>on dépasse par la gauche</b>.</p>
+<p>Sur la route, tu croises des piétons, des cyclistes, des motos, des voitures, des camions et des bus. Les plus fragiles, piétons et cyclistes, demandent le plus d'attention.</p>
+<h3>Qui décide quand deux règles se contredisent ?</h3>
+<ol><li>Les ordres d'un policier</li><li>Les feux</li><li>Les panneaux et les marques au sol</li><li>Les règles générales, comme la priorité de droite</li></ol>
+<h3>Trois mots à connaître</h3>
+<ul><li><b>Chaussée</b> : la partie de la route où roulent les véhicules.</li><li><b>Carrefour</b> : l'endroit où des routes se croisent.</li><li><b>Agglomération</b> : la zone d'une ville ou d'un village, entre les panneaux portant le nom de la localité.</li></ul>`,[
+["De quel côté roule-t-on en Belgique ?",["À gauche","À droite","Au milieu"],1,"On roule à droite."],
+["Un policier te fait signe d'avancer alors que le feu est rouge. Que fais-tu ?",["Je m'arrête au feu","J'obéis au policier","Je décide moi-même"],1,"Les ordres d'un policier passent avant les feux."],
+["Qu'est-ce qu'une agglomération ?",["Une autoroute","La zone d'une ville ou d'un village","Un parking"],1,"C'est la zone bâtie d'une localité, délimitée par les panneaux à son nom."]]],
+
+["La voie publique et la chaussée",`
+<h3>Voie publique, terrain public, terrain non public</h3>
+<ul>
+<li><b>Voie publique</b> : route, pont, tunnel, sentier, chemin de terre, place, autoroute. Tu peux t'y rendre sans justification.</li>
+<li><b>Terrain public</b> (parking de restaurant, station-service) : tu y vas avec un véhicule si tu as une bonne raison.</li>
+<li><b>Terrain non public</b> (terrain d'une auto-école, parking industriel) : bonne raison et permission.</li>
+<li>Le Code de la route ne s'applique que sur la <b>voie publique</b>. Ailleurs, des infractions graves peuvent quand même être sanctionnées.</li>
+<li>Une route marquée « privée » ne fait pas partie de la voie publique, sauf s'il s'agit d'un chemin privé accessible à tous.</li>
+<li>Les conducteurs de tram ne suivent que les injonctions des agents qualifiés et les feux.</li>
+</ul>
+<h3>Les parties de la voie publique</h3>
+<p>La voie publique est plus large que la partie asphaltée : piste cyclable, accotement de plain-pied, accotement en saillie, bande de stationnement et trottoirs en font partie. Elle va jusqu'au fossé, au talus ou à la limite d'une propriété privée.</p>
+<h3>La chaussée</h3>
+<ul>
+<li>C'est la partie aménagée pour la circulation des véhicules : voitures, motos, bus, camions, tracteurs. Piste cyclable, accotement et trottoir n'en font pas partie.</li>
+<li>Sans piste cyclable, cyclistes et cyclomoteurs à deux roues roulent sur la chaussée. Sans trottoir ni accotement, les piétons marchent sur la chaussée, avec prudence.</li>
+<li>Une voie publique peut avoir deux ou trois chaussées nettement séparées (terre-plein, glissière, différence de niveau). Tu n'empruntes jamais la chaussée de gauche par rapport à ton sens, sauf règle locale : elle est en sens interdit, même sans panneau.</li>
+<li>Une ligne blanche au bord de la chaussée indique seulement sa limite extérieure.</li>
+<li>Roule le plus à droite possible. Rouler au milieu ou à gauche sans raison est une infraction.</li>
+</ul>
+<h3>Vitesse sur une chaussée ordinaire (hors agglomération)</h3>
+<ul>
+<li>Wallonie : 90 km/h (70 km/h sur une chaussée à voie centrale).</li>
+<li>Flandre et Bruxelles : 70 km/h.</li>
+</ul>
+<h3>Chaussée à voie centrale</h3>
+<ul>
+<li>On la reconnaît à deux bandes blanches discontinues de chaque côté (deux paires de petits traits). Vitesse maximale : 70 km/h dans les trois régions.</li>
+<li>Les <b>bandes latérales</b> ne font pas partie de la chaussée. Tu n'y entres que pour croiser ou dépasser. Garde 1 m (agglomération) ou 1,5 m (hors agglomération) avec les cyclistes et les piétons.</li>
+<li>Y circulent : cyclistes, speed pedelecs, cyclomoteurs à deux roues de classe A, conducteurs d'animaux de trait non attelés ou de bétail, piétons s'il n'y a pas de trottoir.</li>
+</ul>
+<h3>Animaux</h3>
+<p>Ralentis dès que tu approches d'animaux de trait, de charge, de selle ou de bétail. Si un cheval prend peur et se cabre, arrête-toi et évite tout mouvement brusque.</p>`,[
+["Où le Code de la route s'applique-t-il ?",["Sur la voie publique","Partout","Seulement sur les routes goudronnées"],0,"Le Code ne s'applique que sur la voie publique."],
+["Un parking de restaurant est…",["un terrain public","une voie publique","un terrain non public"],0,"On n'y va qu'avec une bonne raison."],
+["Une voie publique a deux chaussées nettement séparées. Tu roules sur…",["la chaussée de droite par rapport à ton sens","la chaussée de gauche","celle qui est libre"],0,"La chaussée de gauche est en sens interdit, même sans panneau."],
+["Une ligne blanche au bord de la chaussée indique…",["seulement la limite extérieure de la chaussée","un stationnement interdit","une piste cyclable"],0,"Elle n'a aucune autre signification."],
+["Vitesse maximale hors agglomération en Wallonie, sur une chaussée ordinaire ?",["90 km/h","70 km/h","120 km/h"],0,"90 km/h en Wallonie, 70 km/h en Flandre et à Bruxelles."],
+["Vitesse maximale sur une chaussée à voie centrale ?",["70 km/h","90 km/h","50 km/h"],0,"70 km/h dans les trois régions."],
+["Un cheval prend peur à ton passage et se cabre. Tu…",["t'arrêtes et évites tout mouvement brusque","accélères","klaxonnes"],0,"Le cavalier doit pouvoir calmer son cheval."]]],
+
+["Les panneaux",`
+<p>Chaque panneau se reconnaît à sa <b>forme</b> et à sa <b>couleur</b>. Même sans connaître le symbole, tu devines déjà beaucoup.</p>
+${SIGNS}
+<ul><li><b>Triangle rouge, pointe en haut</b> : danger, sois prudent.</li><li><b>Triangle pointe en bas</b> : cédez le passage.</li><li><b>Octogone rouge</b> : stop.</li><li><b>Rond à bord rouge</b> : interdiction ou restriction, par exemple une vitesse maximale.</li><li><b>Rond bleu</b> : obligation, par exemple une direction à suivre.</li><li><b>Rectangle ou carré bleu</b> : indication utile.</li><li><b>Losange jaune</b> : tu es sur une route prioritaire.</li></ul>`,[
+["Un triangle rouge avec la pointe en haut annonce…",["un danger","un stop","une obligation"],0,"Triangle pointe en haut : danger."],
+["Un panneau rond bleu indique…",["une obligation","un danger","une interdiction"],0,"Rond bleu : obligation."],
+["Un panneau rond à bord rouge indique…",["une indication utile","une interdiction ou une restriction","une priorité"],1,"Rond à bord rouge : interdiction ou restriction."],
+["Que signifie un losange jaune ?",["Danger","Tu es sur une route prioritaire","Parking"],1,"Le losange jaune signale une route prioritaire."]]],
+
+["Les feux",`
+<p>Les feux te disent quand avancer et quand t'arrêter.</p>
+<ul><li><b>Rouge</b> : arrêt obligatoire.</li><li><b>Orange fixe</b> : arrêt, sauf si tu ne peux plus t'arrêter en sécurité.</li><li><b>Vert</b> : tu peux passer, en restant attentif aux piétons et aux autres usagers.</li><li><b>Orange clignotant</b> : le feu ne commande rien. Sois prudent et applique les priorités habituelles.</li></ul>
+<p>Rappel : un policier qui dirige la circulation passe avant les feux.</p>`,[
+["Que fais-tu face à un feu rouge ?",["Je m'arrête","Je ralentis seulement","Je passe si la voie est libre"],0,"Rouge : arrêt obligatoire."],
+["Face à un feu orange fixe, tu…",["accélères","t'arrêtes, sauf si c'est impossible en sécurité","passes toujours"],1,"L'orange impose l'arrêt, sauf si tu ne peux plus t'arrêter en sécurité."],
+["Un feu orange clignote. Cela veut dire…",["Arrêt obligatoire","Prudence, les priorités habituelles s'appliquent","Passage prioritaire"],1,"Le feu ne commande rien : tu appliques les règles habituelles."]]],
+
+["Les feux de circulation en détail",`
+<h3>Les feux ronds</h3>
+<ul>
+<li><b>Rouge</b> : arrête-toi avant la ligne d'arrêt, ou devant le feu s'il n'y a pas de ligne.</li>
+<li><b>Orange fixe</b> : arrêt, sauf si tu ne peux plus t'arrêter en sécurité. Le rouge suit quelques secondes plus tard.</li>
+<li><b>Vert</b> : tu peux entrer dans le carrefour s'il est dégagé. Si tu risques de rester bloqué au milieu, tu attends.</li>
+<li><b>Orange clignotant</b> : le feu est en panne ou ne commande rien. Redouble de prudence et applique les règles de priorité habituelles (panneaux, sinon priorité de droite). Un STOP reste un STOP.</li>
+</ul>
+<p>Le feu rond doit se trouver à ta droite. Un feu placé seulement à gauche ne te concerne pas. Tant que les feux fonctionnent, les panneaux de priorité placés dessous ne s'appliquent pas.</p>
+<h3>Flèches et croix</h3>
+<ul>
+<li>Une <b>flèche</b> de couleur a le même sens qu'un feu rond, mais seulement pour la direction indiquée.</li>
+<li><b>Feu rouge + flèche verte</b> : tu peux suivre la direction de la flèche, mais tu cèdes le passage à tous les usagers qui viennent des autres directions.</li>
+<li>Au-dessus d'une bande : <b>flèche verte</b> = bande utilisable, <b>flèche orange</b> = quitte cette bande dès que possible en sécurité, <b>croix rouge</b> = bande interdite.</li>
+</ul>
+<h3>Autres signaux</h3>
+<ul>
+<li>Passage à niveau : <b>deux feux rouges qui clignotent</b> en alternance, tu ne franchis ni la ligne d'arrêt ni le feu. C'est une infraction grave. Un <b>feu blanc clignotant</b> t'autorise à passer.</li>
+<li>Un feu avec la silhouette d'un piéton ou d'un vélo ne concerne que ces usagers.</li>
+<li>Les feux à barres lumineuses sont pour le tram et le bus : triangle pointe en bas = vert, cercle = orange, barre horizontale = rouge.</li>
+<li>Zone avancée pour vélos : les voitures s'arrêtent à la première ligne, les cyclistes à la seconde.</li>
+</ul>`,[
+["Feu rouge avec une flèche verte allumée vers la droite. Tu…",["peux tourner à droite en cédant le passage aux autres usagers","passes sans regarder","dois attendre le vert"],0,"La flèche verte t'autorise cette direction, mais tu cèdes aux usagers des autres directions."],
+["Le feu est vert mais le carrefour est encombré. Tu…",["entres quand même","attends si tu risques de rester bloqué","klaxonnes"],1,"Tu n'entres pas dans un carrefour que tu ne pourras pas dégager."],
+["Un feu orange clignote. Tu…",["dois t'arrêter","peux passer en appliquant les règles de priorité habituelles","passes avant tout le monde"],1,"Le feu est en panne ou ne commande rien : priorité habituelle."],
+["Une croix rouge au-dessus d'une bande de circulation signifie…",["bande interdite","bande réservée aux bus","bande de dépassement"],0,"Croix rouge : il est interdit d'emprunter cette bande."],
+["Deux feux rouges clignotent alternativement à un passage à niveau. Tu…",["ne franchis pas la ligne d'arrêt","passes si rien n'arrive","passes lentement"],0,"Franchir ces feux est une infraction grave."]]],
+
+["Les priorités",`
+<p>La question : qui passe en premier ? Cherche d'abord un policier, un feu ou un panneau. S'il n'y a rien, une règle simple s'applique.</p>
+<h3>La priorité de droite</h3>
+<p>Sans signalisation, tu cèdes le passage aux véhicules qui arrivent de <b>ta droite</b>.</p>
+<h3>Les autres cas</h3>
+<ul><li><b>STOP</b> : arrêt complet, même si la voie est libre, puis tu cèdes le passage.</li><li><b>Cédez le passage</b> : tu ralentis et tu laisses passer la route prioritaire.</li><li><b>Losange jaune</b> : tu as la priorité sur cette route.</li><li><b>Véhicules de secours</b> avec sirène et feux bleus : tu leur facilites le passage, en t'arrêtant si nécessaire.</li><li><b>Piétons</b> engagés sur un passage pour piétons : tu leur cèdes le passage.</li></ul>`,[
+["Carrefour sans signalisation : un véhicule arrive de ta droite. Que fais-tu ?",["Je passe en premier","Je lui cède le passage","Le plus rapide passe"],1,"Sans signalisation, la priorité de droite s'applique."],
+["Au panneau STOP, tu dois…",["ralentir et passer si c'est libre","t'arrêter complètement, même si c'est libre","t'arrêter seulement s'il y a du trafic"],1,"Le STOP impose toujours l'arrêt complet."],
+["Une ambulance avec sirène et feux bleus approche derrière toi. Tu…",["accélères","lui facilites le passage, en t'arrêtant si nécessaire","gardes ton allure"],1,"Les véhicules de secours passent en premier."],
+["Un piéton est engagé sur un passage pour piétons. Tu…",["klaxonnes","lui cèdes le passage","passes avant lui"],1,"Tu cèdes le passage aux piétons engagés sur un passage pour piétons."]]],
+
+["Panneaux de priorité et ronds-points",`
+<h3>Route prioritaire</h3>
+<ul>
+<li><b>Losange jaune</b> : tu es sur une route prioritaire et tu as la priorité aux carrefours suivants. Tu respectes toujours les feux et les ordres des agents.</li>
+<li>Sur une route prioritaire, tu peux dépasser par la gauche dans un carrefour, si c'est sans danger.</li>
+<li><b>Fin de route prioritaire</b> : le losange barré, précédé d'un panneau d'annonce qui indique la distance. Après, tu devras céder le passage.</li>
+<li><b>Priorité au prochain carrefour seulement</b> : un panneau avec de petites lignes sur les côtés qui montrent les routes transversales. Il ne vaut que pour un carrefour, et tu peux aussi y dépasser par la gauche.</li>
+<li>Un panneau additionnel bleu dessine le tracé de la route prioritaire : trait épais = sa direction, trait fin = celui qui doit céder (triangle ou STOP).</li>
+</ul>
+<h3>Cédez le passage</h3>
+<ul>
+<li>Triangle pointe en bas : tu cèdes le passage aux conducteurs de la voie que tu vas emprunter, et tu t'arrêtes si nécessaire. S'il n'y a personne, tu peux passer sans t'arrêter.</li>
+<li>Au sol, une ligne de triangles blancs pointe en bas (les « dents de requin ») marque l'endroit où t'arrêter si nécessaire.</li>
+<li>Un panneau additionnel peut te prévenir que des cyclistes et cyclomotoristes arrivent des deux côtés sur une piste cyclable avant la chaussée.</li>
+<li>Panneau d'annonce : avec une distance, un « cédez le passage » arrive plus loin. Avec le mot STOP, c'est un STOP, à environ 150 m.</li>
+</ul>
+<h3>STOP</h3>
+<ul>
+<li>Arrêt complet à la ligne d'arrêt, avant le carrefour, même si aucun véhicule n'arrive.</li>
+<li>Quand tu t'arrêtes vraiment, tu sens un petit « clic » des roues. Sans ce clic, il y a eu seulement un fort ralentissement.</li>
+</ul>
+<h3>Rond-point</h3>
+<ul>
+<li>Un rond-point a trois éléments : un îlot central matérialisé, des entrées signalées par « cédez le passage » ou STOP, et le panneau bleu aux trois flèches. La circulation y est à sens unique.</li>
+<li>En entrant, tu cèdes le passage aux conducteurs qui viennent de ta gauche : ceux qui sont déjà dans le rond-point et ceux des entrées précédentes.</li>
+<li>Entrer dans un rond-point ne demande pas de clignotant droit.</li>
+<li>Piste cyclable autour du rond-point : en sortant, tu cèdes aux cyclistes qui continuent et aux piétons qui traversent.</li>
+<li>Passage pour cyclistes un peu écarté du rond-point, avec un petit triangle inversé pour eux : à l'entrée, tu ne leur cèdes pas, sauf s'ils sont déjà engagés sur la chaussée.</li>
+<li>Place ronde qui n'a pas ces trois éléments et sans panneau de priorité : priorité de droite.</li>
+</ul>`,[
+["Sur une route prioritaire, tu peux dépasser par la gauche dans un carrefour…",["si c'est sans danger","jamais","seulement de nuit"],0,"C'est permis dans les carrefours, si la manœuvre est sans danger."],
+["Tu arrives à un triangle pointe en bas. Aucun véhicule ne circule sur la voie que tu rejoins. Tu…",["peux passer sans t'arrêter","dois t'arrêter complètement","dois klaxonner"],0,"Tu t'arrêtes seulement s'il y a des conducteurs à laisser passer."],
+["Un triangle d'annonce porte le mot STOP. Cela signifie…",["qu'un STOP arrive environ 150 m plus loin","que la route prioritaire se termine","qu'un rond-point arrive"],0,"Le mot STOP annonce un panneau STOP."],
+["Tu entres dans un rond-point. Tu cèdes le passage à…",["ceux qui viennent de ta gauche : déjà dans le rond-point ou venant des entrées précédentes","ceux qui entrent après toi","personne"],0,"Tu cèdes aux conducteurs déjà engagés dans le rond-point."],
+["Pour entrer dans un rond-point, ton clignotant droit…",["n'est pas nécessaire","est obligatoire","doit être remplacé par le gauche"],0,"Entrer dans un rond-point ne demande pas de clignotant droit."],
+["Sur une place ronde sans panneau de priorité et sans les trois éléments d'un rond-point…",["la priorité de droite s'applique","ceux qui sont sur la place passent d'abord","personne ne cède"],0,"Ce n'est pas un rond-point : priorité de droite."]]],
+
+["Priorité de droite : les exceptions",`
+<p>Dans un carrefour sans policier, sans feux et sans panneaux, tu cèdes le passage au conducteur qui arrive de ta <b>droite</b>. Même s'il ralentit ou s'arrête, il garde sa priorité. Mais il y a des exceptions importantes.</p>
+<h3>Quand la priorité de droite ne s'applique pas</h3>
+<ul>
+<li><b>Rond-point</b> : ceux qui sont déjà dans le rond-point passent avant ceux qui entrent.</li>
+<li><b>Sens interdit</b> : tu ne cèdes pas à un conducteur qui arrive de droite par un sens interdit. Attention : un panneau additionnel peut autoriser certains usagers, comme les vélos, à y rouler à contresens.</li>
+<li><b>Piste cyclable ou trottoir traversé</b> : le conducteur qui les traverse cède le passage aux usagers qui s'y trouvent.</li>
+<li><b>Chemin de terre ou sentier</b> qui rejoint une route : celui qui sort du chemin cède le passage.</li>
+<li><b>Sortie d'un accès privé</b> (garage, parking) ou <b>d'une place de stationnement</b> : c'est une manœuvre, tu cèdes à tout le monde.</li>
+<li><b>Tram</b> : les véhicules sur rails sont prioritaires, sauf signalisation contraire.</li>
+</ul>
+<p>Si celui qui vient de ta droite est bloqué par l'encombrement du carrefour, tu n'as pas l'obligation de l'attendre, mais tu ne gagnes pas pour autant la priorité : assure-toi qu'il te laisse passer.</p>`,[
+["Tu arrives à un rond-point. Qui passe en premier ?",["Ceux qui sont déjà dans le rond-point","Ceux qui entrent","Celui qui arrive de droite sur la voie d'entrée"],0,"Dans un rond-point, la priorité de droite ne s'applique pas à l'entrée."],
+["Tu sors d'un garage privé pour rejoindre la route. Tu…",["cèdes le passage à tous les usagers","as la priorité si tu viens de droite","passes en klaxonnant"],0,"Sortir d'un accès privé est une manœuvre : tu cèdes à tout le monde, piétons compris."],
+["Un conducteur arrive de ta droite, ralentit puis s'arrête. Qui a la priorité ?",["Lui, il la garde","Toi, puisqu'il s'est arrêté","Le plus rapide"],0,"Il garde sa priorité, même s'il ralentit ou s'arrête."],
+["Un chemin de terre débouche sur une route. Qui cède le passage ?",["Celui qui sort du chemin de terre","Celui qui roule sur la route","Celui qui arrive de droite"],0,"La priorité de droite ne s'applique pas entre une route et un chemin de terre."]]],
+
+["Tourner et manœuvrer",`
+<h3>Qui passe en premier quand on tourne ?</h3>
+<ul>
+<li>Celui qui <b>tourne à gauche</b> cède le passage à celui qui arrive en face, qu'il aille tout droit ou qu'il tourne à droite.</li>
+<li>Deux conducteurs face à face qui tournent tous deux à gauche, sans flèches au sol : ils se croisent « par la droite ».</li>
+<li>Quand tu changes de direction, tu cèdes toujours aux <b>piétons et aux cyclistes</b> qui traversent la rue où tu entres, même sans passage pour piétons.</li>
+</ul>
+<h3>Se placer avant de tourner</h3>
+<ul>
+<li>Tourner à <b>gauche</b> sur une route à double sens : place-toi le plus près possible de l'axe de la chaussée.</li>
+<li>Tourner à <b>droite</b> : place-toi le plus à droite possible, en vérifiant que personne n'est à ta droite.</li>
+<li>Tourner à gauche dans une rue à sens unique : roule le plus près possible du bord gauche.</li>
+<li>Avant de tourner : rétroviseurs, angle mort, clignotant.</li>
+</ul>
+<h3>Les manœuvres</h3>
+<p>Une <b>manœuvre</b> est une action que le code ne règle pas spécifiquement. Tu observes, puis tu cèdes le passage à <b>tous</b> les usagers, conducteurs et piétons.</p>
+<ul>
+<li>Changer de bande ou de file, faire demi-tour, reculer</li>
+<li>Traverser la chaussée en dehors d'un carrefour</li>
+<li>Entrer ou sortir d'une place de stationnement, d'un garage ou d'un terrain voisin</li>
+</ul>
+<p>Le panneau d'interdiction de demi-tour interdit seulement le demi-tour, jusqu'au prochain carrefour inclus. Il n'interdit pas de tourner à gauche. Reculer demande une prudence accrue.</p>`,[
+["Tu tournes à gauche. Un véhicule arrive en face et continue tout droit. Qui passe en premier ?",["Lui","Toi","Le plus rapide"],0,"Celui qui tourne à gauche cède le passage à celui qui vient en face."],
+["Tu veux tourner à gauche sur une route à double sens. Où te places-tu ?",["Le plus près possible de l'axe de la chaussée","À l'extrême droite","Sur la bande des véhicules en face"],0,"On se place près de l'axe, jamais sur la bande d'en face."],
+["Tu tournes à droite. Une personne traverse la rue où tu entres, hors passage pour piétons. Tu…",["lui cèdes le passage","passes si tu es plus rapide","klaxonnes"],0,"Tu cèdes aux piétons qui traversent, même sans passage prévu."],
+["Faire demi-tour, c'est…",["une manœuvre : tu cèdes à tous les usagers","un cas de priorité de droite","autorisé sans regarder"],0,"Le demi-tour est une manœuvre."],
+["Un panneau interdit le demi-tour. Tu peux encore…",["tourner à gauche","faire demi-tour au carrefour suivant, jamais avant","reculer pour faire demi-tour"],0,"Ce panneau interdit seulement le demi-tour, pas de tourner à gauche."]]],
+
+["Sens interdits et accès interdit",`
+<h3>Sens interdit et sens unique</h3>
+<ul>
+<li><b>Sens interdit</b> : il est interdit à tous les conducteurs, cyclistes compris, de franchir le signal dans ce sens. Ne le confonds pas avec le <b>sens unique</b>, que suivent ceux qui roulent dans l'autre sens.</li>
+<li>Un panneau additionnel peut autoriser les cyclistes et les cyclomoteurs de classe A à le franchir.</li>
+</ul>
+<h3>Accès interdit dans les deux sens</h3>
+<ul>
+<li>Un rond rouge vide, sans dessin au milieu, interdit l'accès à tous les conducteurs, dans les deux sens.</li>
+<li>Avec le panneau additionnel « excepté circulation locale » (ou desserte locale), tu peux entrer si tu habites ou travailles dans la rue, si tu rends visite à quelqu'un qui y habite ou si tu y livres des marchandises. Les cyclistes et les cavaliers aussi.</li>
+</ul>
+<h3>Accès interdit à certains véhicules</h3>
+<ul>
+<li>Un rond rouge <b>avec un dessin</b> au milieu vise ce type de véhicule, dans ce sens seulement : il peut rouler dans l'autre sens.</li>
+<li>Une moto dessinée : l'interdiction ne vise que les motos, une voiture peut passer.</li>
+<li><b>Masse en charge</b> : interdit aux véhicules dont la masse en charge dépasse celle indiquée. Une voiture peut franchir un panneau de 3,5 t.</li>
+</ul>
+<h3>Changer de direction</h3>
+<ul>
+<li>Flèche barrée à gauche ou à droite : au prochain carrefour, tourner dans ce sens est interdit à tous les conducteurs (sauf ceux cités sur un panneau additionnel).</li>
+<li>Demi-tour interdit : de ce panneau jusqu'au prochain carrefour inclus.</li>
+</ul>`,[
+["Un panneau de sens interdit s'applique…",["à tous les conducteurs, cyclistes compris","aux voitures seulement","aux camions seulement"],0,"Il vise tous les conducteurs, sauf exception précisée par un panneau additionnel."],
+["Un rond rouge vide, sans dessin, indique un accès interdit…",["dans les deux sens, à tous les conducteurs","dans un seul sens","aux piétons seulement"],0,"Sans emblème, l'interdiction vaut dans les deux sens."],
+["Qui peut entrer sous « excepté circulation locale » ?",["Quelqu'un qui habite dans la rue ou y livre des marchandises","Tout conducteur","Personne"],0,"Riverains, visiteurs, livreurs, cyclistes et cavaliers."],
+["Un rond rouge avec une moto dessinée s'adresse…",["aux motos","aux voitures et aux motos","aux camions"],0,"Il ne vise que les motos, dans ce sens."],
+["Peut-on passer en voiture sous un panneau d'interdiction de masse en charge de 3,5 t ?",["Oui","Non","Seulement le dimanche"],0,"Une voiture peut franchir un panneau de 3,5 t."],
+["Un panneau interdit le demi-tour. Il s'applique…",["jusqu'au prochain carrefour inclus","pendant 100 m","jusqu'au prochain panneau"],0,"De ce panneau jusqu'au prochain carrefour inclus."]]],
+
+["La vitesse",`
+<p>Une limite de vitesse est un <b>maximum</b>, pas un objectif. Adapte ta vitesse à la pluie, au brouillard et au trafic.</p>
+<ul><li><b>Autoroute</b> : 120 km/h.</li><li><b>Hors agglomération</b> : 90 km/h en Wallonie, 70 km/h en Flandre et en Région de Bruxelles-Capitale sur la plupart des routes.</li><li><b>En agglomération</b> : 50 km/h en général, mais 30 km/h par défaut à Bruxelles.</li><li><b>Zone 30</b> : 30 km/h.</li><li><b>Zone résidentielle ou de rencontre</b> : 20 km/h, avec beaucoup de piétons et d'enfants.</li></ul>
+<p>Un panneau sur place l'emporte toujours sur la règle générale.</p>`,[
+["Vitesse maximale sur autoroute, sans autre indication ?",["90 km/h","110 km/h","120 km/h","130 km/h"],2,"120 km/h."],
+["Vitesse maximale en zone résidentielle ou de rencontre ?",["10 km/h","20 km/h","30 km/h","50 km/h"],1,"20 km/h, avec une grande attention aux piétons et aux enfants."],
+["Vitesse maximale par défaut en Région de Bruxelles-Capitale ?",["20 km/h","30 km/h","50 km/h","70 km/h"],1,"Depuis 2021 : 30 km/h, sauf signalisation contraire."]]],
+
+["Excès de vitesse et sanctions",`
+<p>Rouler trop vite est une infraction, mais rouler <b>inutilement lentement</b> ou freiner brusquement sans raison en est une aussi. Les courses de vitesse sont une infraction grave.</p>
+<h3>Retrait immédiat du permis</h3>
+<p>Décidé par le procureur du Roi, exécuté par la police, en cas d'excès de plus de :</p>
+<ul><li><b>30 km/h</b> sur autoroute et sur route ordinaire</li><li><b>20 km/h</b> en agglomération, en zone 30 et en zone résidentielle</li></ul>
+<h3>Déchéance du droit de conduire</h3>
+<p>Décidée par un <b>juge</b> au tribunal, pour 8 jours minimum et 5 ans maximum, en cas d'excès de plus de :</p>
+<ul><li><b>40 km/h</b> sur autoroute et sur route ordinaire</li><li><b>30 km/h</b> en agglomération, en zone 30 et en zone résidentielle</li></ul>
+<p>À l'examen, ne confonds pas : retrait immédiat = procureur et police ; déchéance = juge.</p>
+<h3>Dispositifs surélevés</h3>
+<p>Les ralentisseurs annoncés par certains panneaux, ou situés dans une zone 30, se franchissent à 30 km/h maximum.</p>`,[
+["Tu dépasses de 35 km/h la limite sur une route ordinaire. Que risques-tu ?",["Seulement un avertissement","Un retrait immédiat du permis","Rien, sous 40 km/h"],1,"Au-delà de 30 km/h d'excès, le permis peut être retiré immédiatement."],
+["Qui prononce la déchéance du droit de conduire ?",["La police","Un juge","Le procureur"],1,"La déchéance est une décision de justice. Le retrait immédiat, lui, vient du procureur."],
+["À partir de quel excès de vitesse en agglomération risques-tu un retrait immédiat ?",["Plus de 10 km/h","Plus de 20 km/h","Plus de 40 km/h"],1,"En agglomération : plus de 20 km/h."],
+["Rouler très lentement sans raison…",["est une infraction","est toujours permis","est obligatoire en ville"],0,"Conduire inutilement lentement est aussi une infraction."]]],
+
+["Distance de sécurité et d'arrêt",`
+<h3>Distance de sécurité</h3>
+<ul>
+<li>Règle simple : <b>la vitesse divisée par deux</b> donne la distance en mètres (120 km/h : 60 m).</li>
+<li><b>Règle des deux secondes</b> sur sol sec : choisis un repère fixe. Tu dois le passer au moins deux secondes après la voiture devant toi.</li>
+<li>Sol mouillé : ajoute 50 % (environ trois secondes). Neige ou verglas : au moins quatre secondes.</li>
+</ul>
+<h3>Distance de réaction</h3>
+<p>C'est la distance parcourue entre le moment où tu vois le danger et celui où tu commences à freiner. Le temps de réaction est d'environ <b>une seconde</b> et ne dépend pas de la vitesse, mais la distance parcourue, si : 15 m à 50 km/h, 27 m à 90 km/h, 36 m à 120 km/h. L'alcool le porte à 2 à 3 secondes, les drogues bien plus. L'âge, le manque de concentration et certains médicaments l'allongent aussi.</p>
+<h3>Freinage et arrêt</h3>
+<ul>
+<li><b>Distance de freinage</b> : du moment où tu appuies sur le frein jusqu'à l'arrêt. Sur sol mouillé, elle est environ 1,5 fois plus longue que sur sol sec. Elle dépend aussi des pneus, de la route, du poids et des pentes.</li>
+<li><b>Distance d'arrêt</b> = distance de réaction + distance de freinage.</li>
+<li>À retenir pour l'examen, sol sec : <b>50 km/h ≈ 30 m</b>, <b>70 km/h ≈ 45 m</b>, <b>90 km/h ≈ 70 m</b>, <b>110 km/h ≈ 95 m</b>.</li>
+<li><b>ABS</b> : empêche les roues de se bloquer et te laisse diriger, mais ne raccourcit pas forcément la distance de freinage.</li>
+</ul>`,[
+["Tu roules à 100 km/h sur sol sec. Quelle distance de sécurité avec la règle simple ?",["30 m","50 m","100 m"],1,"Vitesse divisée par deux : 50 m."],
+["Le temps de réaction d'un conducteur normal est d'environ…",["une seconde","dix secondes","un dixième de seconde"],0,"Environ une seconde, mais plus avec l'alcool ou les drogues."],
+["Distance d'arrêt à 90 km/h sur sol sec ?",["environ 30 m","environ 70 m","environ 150 m"],1,"À 90 km/h, environ 70 m."],
+["Sur sol mouillé, la distance de freinage est…",["plus longue","identique","plus courte"],0,"Elle est environ 1,5 fois plus longue."],
+["L'ABS…",["empêche les roues de se bloquer, sans toujours raccourcir la distance de freinage","raccourcit toujours la distance de freinage","remplace la distance de sécurité"],0,"L'ABS aide à garder le contrôle de la direction."]]],
+
+["Sécurité et comportement",`
+<ul><li><b>Alcool</b> : 0,5 gramme par litre de sang au maximum. Le plus sûr : zéro.</li><li><b>Ceinture</b> : obligatoire pour tous les occupants des places équipées.</li><li><b>Enfants</b> : sous 135 cm, un siège auto ou un rehausseur adapté.</li><li><b>Téléphone et écrans</b> : tu ne tiens ni ne manipules aucun appareil mobile à écran en conduisant, sauf s'il est fixé dans un support du véhicule (par exemple comme GPS). être arrêté à un feu rouge ou dans un embouteillage ne compte pas comme être à l'arrêt.</li><li><b>Éclairage</b> : feux de croisement allumés la nuit et quand on voit mal.</li><li><b>Passage pour piétons</b> : arrêt et stationnement interdits dessus.</li><li><b>Distance de sécurité</b> : garde de la marge, et plus encore sur route mouillée.</li></ul>`,[
+["Quelle est la limite légale d'alcool dans le sang ?",["0,2 g/L","0,5 g/L","0,8 g/L","1 g/L"],1,"0,5 g/L. Le plus sûr reste de ne pas boire avant de conduire."],
+["Un enfant mesure 120 cm. Comment voyage-t-il en voiture ?",["Avec la ceinture seule","Dans un siège auto ou rehausseur adapté","Sans retenue, à l'arrière"],1,"Sous 135 cm, un système de retenue adapté est obligatoire."],
+["Peut-on tenir son GSM en main en conduisant ?",["Oui, brièvement","Non, seulement s'il est fixé dans un support du véhicule","Oui, sur autoroute"],1,"Tenir ou manipuler son téléphone est interdit pendant la conduite, sauf dans un support fixé au véhicule."],
+["Peut-on s'arrêter ou stationner sur un passage pour piétons ?",["Oui, brièvement","Non, c'est interdit","Oui, la nuit"],1,"L'arrêt et le stationnement y sont interdits."]]],
+
+["Les marques sur la route",`
+<p>Les lignes peintes sur la chaussée sont de vrais panneaux.</p>
+<ul><li><b>Ligne blanche continue</b> : tu ne la franchis pas et tu ne roules pas dessus.</li><li><b>Ligne blanche discontinue</b> : tu peux la franchir pour dépasser ou changer de bande, si c'est sans danger.</li><li><b>Ligne d'arrêt</b> (large bande blanche en travers) : tu t'arrêtes juste avant, au feu ou au STOP.</li><li><b>Passage pour piétons</b> : bandes blanches parallèles à la route, les « zébras ».</li><li><b>Flèches au sol</b> : elles indiquent la direction à prendre sur chaque bande.</li></ul>`,[
+["Une ligne blanche continue…",["se franchit si la route est libre","ne se franchit pas","se franchit la nuit"],1,"Une ligne continue ne se franchit pas."],
+["Où t'arrêtes-tu à un feu rouge ?",["Juste avant la ligne d'arrêt","Après la ligne d'arrêt","Sur la ligne"],0,"Tu t'arrêtes avant la ligne d'arrêt."],
+["Des bandes blanches parallèles à la route, en travers de la chaussée, forment…",["un passage pour piétons","une zone de parking","une ligne d'arrêt"],0,"Ce sont les « zébras » d'un passage pour piétons."]]],
+
+["Bandes de circulation, tirette et bande de bus",`
+<h3>Bandes et flèches</h3>
+<ul>
+<li>Une chaussée peut être divisée en <b>bandes de circulation</b> par des lignes blanches, continues ou discontinues.</li>
+<li>Près des carrefours, des <b>flèches</b> au sol indiquent la direction à suivre. Un panneau bleu au bord de la route explique souvent le marquage. Tu choisis ta bande avant le carrefour, mais dans le carrefour tu suis la flèche.</li>
+<li>Même avec plusieurs bandes, en conditions normales tu roules sur la <b>bande de droite</b>. Rouler à gauche sans raison est une infraction.</li>
+</ul>
+<h3>Dépasser avec des bandes</h3>
+<ul>
+<li>Ligne blanche discontinue : tu peux la franchir pour dépasser (sauf si la visibilité ou un panneau l'interdit).</li>
+<li>Ligne blanche continue : interdit de la franchir pour dépasser, et interdit de rouler à gauche d'une ligne continue qui sépare les deux sens.</li>
+<li>Continue et discontinue côte à côte : tu peux franchir la discontinue si elle est de ton côté. Après le dépassement, retourne sur la bande de droite.</li>
+</ul>
+<h3>Rétrécissement et tirette</h3>
+<ul>
+<li>Deux panneaux bleus annoncent la réduction du nombre de bandes : rétrécissement par la gauche ou par la droite.</li>
+<li><b>Principe de la tirette</b> : obligatoire quand la circulation est fortement ralentie devant un rétrécissement, un obstacle, un aménagement ou un accident. Ce n'est pas une manœuvre.</li>
+<li>Celui dont la bande se termine s'intercale <b>juste devant le rétrécissement</b>, pas avant. Les conducteurs de la bande libre cèdent à tour de rôle.</li>
+<li>Si la circulation est interrompue à la fois à gauche et à droite : d'abord celui de la bande de droite, ensuite celui de la bande de gauche, puis celui de la bande libre.</li>
+</ul>
+<h3>Bande de bus</h3>
+<ul>
+<li>Elle ne fait pas partie de la chaussée : une ou deux larges lignes blanches discontinues (ou un damier) et le panneau F17.</li>
+<li>Avec ta voiture : interdit d'y rouler, de s'y arrêter ou de s'y garer.</li>
+<li>Exceptions : près d'un carrefour pour changer de direction, la traverser dans un carrefour, entrer dans une propriété ou rejoindre une place de stationnement, ou contourner un obstacle.</li>
+<li>Des panneaux additionnels ou des marques peuvent y admettre d'autres usagers (cyclistes, cyclomoteurs, motos).</li>
+</ul>
+<h3>Zone d'évitement et travaux</h3>
+<ul>
+<li>De larges lignes diagonales au sol forment une zone d'évitement : interdit d'y circuler, de s'y arrêter ou de s'y garer.</li>
+<li>Pendant des travaux, des lignes provisoires <b>orange</b> ont le même sens que les blanches. Si tu vois des blanches et des oranges, ne suis que les oranges. Si des marques orange autorisent à rouler sur une zone d'évitement ou une bande d'arrêt d'urgence, c'est permis.</li>
+</ul>`,[
+["Chaussée à plusieurs bandes, conditions normales. Tu roules sur…",["la bande de droite","la bande de gauche","n'importe quelle bande"],0,"Rouler à gauche sans raison est une infraction."],
+["Une ligne continue et une ligne discontinue sont côte à côte. La discontinue est de ton côté. Tu…",["peux la franchir pour dépasser","ne peux jamais dépasser","dois t'arrêter"],0,"Tu peux franchir la ligne discontinue si elle est de ton côté."],
+["Quand le principe de la tirette s'applique-t-il ?",["Quand la circulation est fortement ralentie devant un rétrécissement","Toujours devant un rétrécissement","Seulement la nuit"],0,"Il est obligatoire quand la circulation est fortement ralentie."],
+["Ta bande se termine, circulation fortement ralentie. Tu t'intercales…",["juste devant le rétrécissement","dès que tu vois le panneau","jamais"],0,"On s'intercale seulement juste devant le rétrécissement."],
+["Peux-tu rouler en voiture sur une bande de bus ?",["Non, sauf exceptions comme changer de direction près d'un carrefour","Oui, aux heures creuses","Oui, si elle est vide"],0,"La bande de bus est réservée, avec quelques exceptions."],
+["De larges lignes diagonales sur la chaussée signifient…",["zone d'évitement : interdit d'y circuler, de s'y arrêter et de s'y garer","zone de stationnement","passage pour piétons"],0,"C'est une zone d'évitement."],
+["Pendant des travaux, tu vois des lignes blanches et des lignes orange. Tu suis…",["les lignes orange","les lignes blanches","aucune"],0,"Les lignes provisoires orange l'emportent."]]],
+
+["Piste cyclable, zone cyclable et cyclistes",`
+<h3>La piste cyclable</h3>
+<ul>
+<li>C'est une partie de la voie publique, <b>pas de la chaussée</b>. Elle est réservée aux vélos et aux cyclomoteurs de classe A. Les cyclomoteurs de classe B n'y vont que si un panneau additionnel l'impose.</li>
+<li>Elle se reconnaît à un panneau bleu d'obligation, ou à deux lignes blanches discontinues parallèles, trop proches pour laisser passer une voiture. Sa couleur (rouge, ocre, jaune) ne signifie rien.</li>
+<li>Piéton et vélo côte à côte sur le panneau : piste cyclable obligatoire pour vélos, cyclomoteurs A et piétons. Piéton et vélo l'un au-dessus de l'autre : chemin réservé aux piétons et aux vélos, sans aucun cyclomoteur.</li>
+<li>Avec ta voiture : tu ne roules pas, tu ne t'arrêtes pas et tu ne te gares pas sur une piste cyclable. Tu peux la traverser pour changer de direction ou faire une manœuvre.</li>
+<li>S'il y a une piste, le cycliste doit l'utiliser (sauf si elle est impraticable). En agglomération, il ne roule pas sur le trottoir, sauf les enfants de moins de 10 ans.</li>
+</ul>
+<h3>Passage pour cyclistes</h3>
+<ul>
+<li>Un panneau bleu se trouve près du passage et un panneau de danger rouge environ 150 m avant. Les cyclistes doivent d'abord céder aux conducteurs de la chaussée, mais une fois engagés sur le passage, ils sont prioritaires.</li>
+<li>Arrêt et stationnement interdits sur le passage et à moins de 5 m avant. Après le passage, tu peux t'arrêter et stationner, sauf signalisation contraire.</li>
+<li>Il est interdit de dépasser un conducteur qui ralentit ou s'arrête devant le passage. Tu t'en approches à allure modérée.</li>
+<li>Le même panneau de danger signale aussi l'endroit où des cyclistes quittent une piste qui se termine. Le cycliste qui reprend sa place sur la chaussée à la fin d'une piste est prioritaire. Arrêt et stationnement interdits à moins de 5 m de cet endroit.</li>
+</ul>
+<h3>Autres aménagements</h3>
+<ul>
+<li><b>Bande cyclable suggérée</b> (bande colorée sur la chaussée, sans lignes discontinues parallèles ni panneau) : elle fait partie de la chaussée, tu peux y rouler, t'y arrêter et t'y garer.</li>
+<li><b>Chaussée à voie centrale</b> : les voitures roulent au milieu, entre deux lignes discontinues. Les bandes latérales sont pour les vélos, les cyclomoteurs A, les cavaliers. Pour croiser ou dépasser, tu peux empiéter sur la bande latérale sans gêner. Vitesse maximale : 70 km/h.</li>
+<li><b>Zone cyclable</b> (du panneau de début au panneau de fin) : 30 km/h maximum. Les véhicules à moteur sont des invités et ne dépassent ni les cyclistes ni les trottinettes. D'autres véhicules, comme un cyclomoteur, peuvent être dépassés sans dépasser 30 km/h.</li>
+<li><b>Groupes de cyclistes</b> de 15 à 150 personnes : ils peuvent rouler à deux de front en restant groupés, sur la bande de droite, sans devoir utiliser la piste.</li>
+<li>Trottinettes, rollers et skateboards qui vont plus vite que le pas sont assimilés aux cyclistes.</li>
+</ul>`,[
+["Une piste cyclable fait partie…",["de la voie publique, mais pas de la chaussée","de la chaussée","d'un parking"],0,"Elle ne fait pas partie de la chaussée : tu n'y roules pas en voiture."],
+["Peux-tu t'arrêter un instant sur une piste cyclable pour déposer un passager ?",["Non","Oui, une minute","Oui, la nuit"],0,"Arrêt et stationnement y sont interdits."],
+["Une bande colorée sur la chaussée, sans lignes discontinues parallèles ni panneau, est…",["une bande cyclable suggérée, partie de la chaussée","une piste cyclable obligatoire","une zone d'évitement"],0,"Tu peux y rouler, t'y arrêter et t'y garer."],
+["Après un passage pour cyclistes, tu peux t'arrêter ou stationner ?",["Oui, sauf signalisation contraire","Non, jamais","Seulement la nuit"],0,"L'interdiction vaut sur le passage et dans les 5 m avant."],
+["Vitesse maximale dans une zone cyclable ?",["30 km/h","50 km/h","20 km/h"],0,"30 km/h, du panneau de début au panneau de fin."],
+["Dans une zone cyclable, tu peux dépasser un cycliste avec ta voiture ?",["Non","Oui, par la gauche","Oui, par la droite"],0,"Les véhicules à moteur n'y dépassent pas les cyclistes."],
+["Un cycliste reprend sa place sur la chaussée à la fin d'une piste cyclable. Qui passe d'abord ?",["Le cycliste","La voiture","Le plus rapide"],0,"Le cycliste est prioritaire à la fin d'une piste cyclable."]]],
+
+["Arrêt et stationnement",`
+<ul><li><b>Arrêt</b> : brève immobilisation (faire monter ou descendre quelqu'un, charger), conducteur présent. <b>Stationnement</b> : toute autre immobilisation.</li><li>Gare-toi hors de la chaussée sur l'accotement de plain-pied quand c'est possible, et toujours le plus loin possible de l'axe de la route.</li><li><b>Arrêt et stationnement interdits</b> : sur un passage pour piétons ou cyclistes, sur une piste cyclable, sur un passage à niveau, sur un trottoir (sauf signalisation contraire), et partout où tu gênes ou mets en danger les autres.</li><li><b>Interdit à moins de 5 m</b> avant un passage pour piétons ou cyclistes, et à moins de 5 m du prolongement du bord d'une rue qui débouche à un carrefour.</li><li><b>Interdit à moins de 20 m</b> avant un feu de signalisation placé à un carrefour.</li></ul>`,[
+["À quelle distance minimale avant un passage pour piétons peut-on stationner ?",["5 mètres","1 mètre","20 mètres"],0,"Pas de stationnement à moins de 5 m avant un passage pour piétons."],
+["À quelle distance minimale avant un feu de signalisation à un carrefour peut-on stationner ?",["5 mètres","10 mètres","20 mètres"],2,"Pas de stationnement à moins de 20 m avant un feu à un carrefour."],
+["Peut-on stationner sur une piste cyclable ?",["Oui, la nuit","Non, c'est interdit","Oui, si les vélos passent"],1,"L'arrêt et le stationnement y sont interdits."]]],
+
+["Zone bleue et panneaux de stationnement",`
+<h3>Zone bleue et disque</h3>
+<ul>
+<li>Un panneau annonce le début d'une <b>zone bleue</b> (stationnement à durée limitée). La règle vaut dans toute la zone, sauf là où un autre panneau en dispose autrement.</li>
+<li>Les jours ouvrables de <b>9 h à 18 h</b>, tu dois utiliser le <b>disque de stationnement</b>, bien visible derrière le pare-brise, sauf autre indication sur un panneau.</li>
+<li>Place la flèche du disque sur le trait qui suit ton heure d'arrivée. Tu peux rester <b>deux heures</b> à partir de cette heure, sauf autre durée affichée. Ensuite tu déplaces le véhicule : tu ne modifies pas le disque.</li>
+<li>Le disque peut aussi être obligatoire hors zone bleue si la mention « disque » figure sous un signal de stationnement.</li>
+<li>Parcomètre ou horodateur : tu paies le tarif affiché. S'il est en panne, tu utilises ton disque.</li>
+</ul>
+<h3>Les panneaux P bleus</h3>
+<ul>
+<li><b>P seul</b> : stationnement autorisé.</li>
+<li><b>P avec une voiture</b> : réservé aux voitures, voitures mixtes, minibus et motos. Pas aux camionnettes.</li>
+<li>Stationnement <b>obligatoire sur l'accotement ou le trottoir</b> : il est alors interdit de se garer sur la chaussée.</li>
+<li>Stationnement <b>obligatoire sur la chaussée</b> : interdit sur l'accotement et le trottoir.</li>
+<li>Stationnement <b>en partie sur la chaussée, en partie sur l'accotement</b> : pas entièrement sur l'un ou sur l'autre.</li>
+<li><b>Zone 3,5 tonnes</b> : réservée aux véhicules de masse maximale autorisée jusqu'à 3,5 t.</li>
+<li>Panneau additionnel avec le symbole de la prise : réservé aux véhicules électriques.</li>
+<li>Stationnement alterné : emplacement réservé selon les horaires indiqués.</li>
+</ul>
+<h3>Quitter la voiture</h3>
+<ul>
+<li>Frein à main, fenêtres et toit ouvrant fermés, moteur coupé, clé retirée, portes fermées en sortant. En boîte automatique : position Parking.</li>
+<li>Pour t'éloigner, marche vers l'arrière de la voiture : tu vois la circulation arriver. Pour monter, passe par l'avant.</li>
+</ul>
+<h3>Longue durée</h3>
+<ul>
+<li>Une voiture en panne ne reste pas plus de <b>24 heures</b> sur la voie publique.</li>
+<li>Un véhicule publicitaire : trois heures au maximum.</li>
+<li>Interdit de mettre en vente ou en location un véhicule sur la voie publique.</li>
+</ul>`,[
+["Dans une zone bleue, quand le disque est-il obligatoire ?",["Les jours ouvrables de 9 h à 18 h","Tous les jours, 24 h sur 24","Seulement le dimanche"],0,"Jours ouvrables de 9 h à 18 h, sauf autre indication."],
+["Combien de temps peut-on stationner avec le disque ?",["Deux heures","Une heure","Toute la journée"],0,"Deux heures à partir de l'heure indiquée, sauf autre durée affichée."],
+["Ton temps de stationnement est écoulé. Tu…",["déplaces le véhicule, sans modifier le disque","changes l'heure du disque","ajoutes un deuxième disque"],0,"Il est interdit de modifier l'heure sur le disque."],
+["Un panneau P impose le stationnement sur l'accotement ou le trottoir. Où te gares-tu ?",["Sur l'accotement ou le trottoir, pas sur la chaussée","Sur la chaussée","En partie sur chacun"],0,"Le stationnement sur la chaussée est alors interdit."],
+["Une voiture tombe en panne. Combien de temps peut-elle rester sur la voie publique ?",["24 heures au maximum","Une semaine","Sans limite"],0,"24 heures au maximum."],
+["Avant de quitter ta voiture, tu…",["tires le frein à main et retires la clé","laisses tourner le moteur","laisses la clé sur le contact"],0,"Frein à main, moteur coupé, clé retirée, portes fermées."]]],
+
+["Dépasser et croiser",`
+<ul><li>Dépasse par la <b>gauche</b>, après avoir regardé dans le rétroviseur et vérifié l'angle mort.</li><li>Mets ton clignotant avant de te décaler, puis reviens à droite sans gêner le véhicule dépassé.</li><li>Ne dépasse pas si tu ne vois pas assez loin devant toi : virage, sommet de côte.</li><li>Le conducteur qu'on dépasse ne doit <b>pas accélérer</b>.</li><li>Pour dépasser un cycliste ou un piéton, ralentis et laisse une distance latérale suffisante.</li></ul>`,[
+["Dans quelle situation est-il interdit de dépasser ?",["Sur une ligne droite dégagée","Dans un virage où tu ne vois pas devant","Sur une autoroute"],1,"Il faut voir assez loin pour dépasser en sécurité."],
+["Un véhicule te dépasse. Que fais-tu ?",["J'accélère","Je maintiens ou réduis ma vitesse","Je me rapproche"],1,"Le conducteur dépassé ne peut pas accélérer."],
+["Avant de dépasser, tu dois…",["vérifier le rétroviseur et l'angle mort","klaxonner seulement","accélérer d'abord"],0,"Rétroviseur, angle mort, puis clignotant."]]],
+
+["Où il est interdit de dépasser",`
+<h3>Les lignes</h3>
+<ul>
+<li><b>Ligne discontinue</b> (blanche ou jaune) : tu peux la franchir pour dépasser par la gauche, mais pas pour rouler à gauche sans dépasser.</li>
+<li><b>Ligne continue</b> (blanche ou jaune) : tu ne la franchis pas, même pour entrer dans une propriété.</li>
+<li>Une continue et une discontinue côte à côte : tu peux franchir la discontinue si elle est de ton côté.</li>
+</ul>
+<h3>Quels véhicules, et où ?</h3>
+<p>Dans les endroits ci-dessous, il est interdit de dépasser par la gauche un véhicule attelé, un véhicule à plus de deux roues ou un véhicule à moteur à deux roues. Un cycliste, lui, peut toujours être dépassé.</p>
+<ul>
+<li>Aux carrefours où s'applique la priorité de droite, ou où tu dois céder le passage.</li>
+<li>Dans un virage dangereux sans visibilité, et à l'approche du sommet d'une côte où l'on ne voit pas assez loin. Dans la côte, tu peux dépasser si la route est divisée en bandes et que tu ne franchis pas la ligne continue.</li>
+<li>Sur un passage à niveau signalé seulement par un panneau de danger, sauf s'il y a des barrières ou si le feu blanc clignote.</li>
+<li>Devant un passage pour piétons ou pour cyclistes : tu ne dépasses pas un véhicule qui approche, ralentit ou s'arrête. Arrêt et stationnement sont interdits sur le passage et jusqu'à 5 m avant.</li>
+</ul>
+<h3>Tripler et panneaux</h3>
+<ul>
+<li><b>Tripler</b> = dépasser un véhicule qui en dépasse un autre. Sur une route à double sens, tu peux dépasser une voiture qui dépasse un deux-roues motorisé, mais pas une voiture qui dépasse une autre voiture. Avec au moins trois bandes dans ton sens (rue à sens unique, autoroute à trois bandes), c'est permis.</li>
+<li>Le panneau d'interdiction de dépasser vaut jusqu'au carrefour suivant, ou jusqu'au panneau de fin. Il vise les véhicules à plus de deux roues et les véhicules attelés : une voiture peut donc encore dépasser une moto.</li>
+<li>Un cycliste ou une trottinette se dépasse par la gauche. Seule exception : un cycliste qui se prépare à tourner à gauche, que tu peux dépasser par la droite.</li>
+</ul>`,[
+["Une ligne continue sépare les deux sens. Peux-tu la franchir pour dépasser ?",["Oui, si la route est libre","Non","Oui, la nuit"],1,"Une ligne continue ne se franchit pas, même pour dépasser."],
+["Tu approches d'un passage pour piétons. Le véhicule devant toi ralentit. Tu…",["le dépasses vite","ne le dépasses pas","le dépasses par la droite"],1,"On ne dépasse pas un véhicule qui ralentit ou s'arrête devant un passage pour piétons."],
+["Sur une route à double sens, tu peux dépasser…",["une voiture qui dépasse une autre voiture","une voiture qui dépasse une moto ou un cyclomoteur","aucune voiture qui dépasse"],1,"Tripler est permis seulement si le véhicule dépassé est un deux-roues motorisé."],
+["Un panneau interdit de dépasser. Avec ta voiture, tu peux quand même dépasser…",["une moto","une autre voiture","un camion"],0,"L'interdiction vise les véhicules à plus de deux roues et attelés, pas les deux-roues."],
+["Un cycliste s'apprête à tourner à gauche. Tu peux le dépasser…",["par la droite","jamais","seulement par la gauche"],0,"C'est la seule exception à l'obligation de dépasser par la gauche."]]],
+
+["Autoroutes et passages à niveau",`
+<ul><li><b>Autoroute</b> : 120 km/h maximum. Interdite aux piétons et aux cyclistes.</li><li>Roule à droite et dépasse par la gauche. Après un dépassement, reviens à droite.</li><li>Quand tu <b>entres</b> sur l'autoroute, tu cèdes le passage à ceux qui y circulent.</li><li>La <b>bande d'arrêt d'urgence</b> sert uniquement en cas de panne ou d'urgence.</li><li>En panne sur autoroute : feux de détresse, triangle de signalisation à 100 m, et mets-toi en sécurité derrière la glissière.</li></ul>
+<h3>Passages à niveau</h3>
+<ul><li>Feux rouges clignotants ou barrières qui descendent : <b>arrêt obligatoire</b>.</li><li>Ne t'engage jamais si tu risques de rester bloqué sur les rails.</li></ul>`,[
+["Tu entres sur l'autoroute par une bretelle. Tu…",["cèdes le passage aux véhicules déjà sur l'autoroute","passes en premier","t'arrêtes sur la bande d'arrêt d'urgence"],0,"Celui qui entre cède le passage."],
+["La bande d'arrêt d'urgence sert à…",["dépasser","uniquement les pannes et les urgences","se reposer"],1,"Elle est réservée aux pannes et aux urgences."],
+["Les feux rouges clignotent à un passage à niveau. Tu…",["t'arrêtes","passes vite","klaxonnes"],0,"Arrêt obligatoire."],
+["En panne sur autoroute, où places-tu le triangle ?",["À 30 m","À 50 m","À 100 m"],2,"Sur autoroute, le triangle se place à 100 m."]]],
+
+["Train, tram et bus",`
+<h3>Passages à niveau</h3>
+<ul>
+<li>Un train freine très long et ne peut pas dévier : reste prudent.</li>
+<li>Des panneaux de danger indiquent une ou plusieurs voies, et un passage <b>avec</b> ou <b>sans barrières</b> (150 m avant).</li>
+<li><b>Feu blanc clignotant</b> : aucun train n'approche, tu peux traverser.</li>
+<li><b>Signal sonore ou feux rouges clignotants</b> : tu ne t'engages pas. Traverser pendant que les barrières bougent est une infraction grave (retrait immédiat possible).</li>
+</ul>
+<h3>Tram</h3>
+<p>Le tram a toujours la priorité : il ne suit que les ordres des agents et les feux. Un panneau de danger signale des rails qui traversent la chaussée.</p>
+<h3>Site spécial franchissable (SSF)</h3>
+<p>Réservé au tram et au bus (un panneau additionnel peut y admettre vélos, motos ou taxis). Il ne fait pas partie de la chaussée. Ligne blanche continue = SSF. Ligne blanche discontinue = bande bus.</p>
+<ul>
+<li>En voiture, tu ne peux ni y rouler, ni t'y arrêter, ni t'y garer, même juste avant un carrefour pour te placer.</li>
+<li>Tu peux le traverser aux carrefours, le traverser pour entrer ou sortir d'une propriété ou d'un parking, ou y rouler pour contourner un obstacle.</li>
+<li>Sur certaines autoroutes, l'ancienne bande d'arrêt d'urgence devient un SSF (ligne continue, mot BUS).</li>
+</ul>
+<h3>Bus</h3>
+<ul>
+<li><b>Bande bus</b> : réservée aux autobus. Tu n'y roules pas, sauf près d'un carrefour pour changer de direction ou pour contourner un obstacle.</li>
+<li><b>Arrêt de bus</b> : tu peux t'y arrêter pour faire monter ou descendre quelqu'un, mais pas y attendre. Sans marquage, stationnement interdit à moins de 15 m de chaque côté du poteau.</li>
+<li>En agglomération, tu cèdes le passage à un autobus qui quitte son arrêt dès qu'il met son clignotant gauche. Hors agglomération, ce n'est pas obligatoire.</li>
+</ul>`,[
+["Un feu blanc clignote près d'un passage à niveau. Tu…",["peux traverser, aucun train n'approche","dois t'arrêter","dois klaxonner"],0,"Le feu blanc clignotant signifie qu'aucun train n'approche."],
+["Un tram et une voiture arrivent à un carrefour sans signalisation. Qui passe d'abord ?",["Le tram","La voiture venant de droite","Le plus rapide"],0,"Le tram a toujours la priorité."],
+["Un autobus quitte son arrêt en agglomération, clignotant gauche allumé. Tu…",["lui cèdes le passage","passes avant lui","klaxonnes"],0,"En agglomération, tu cèdes le passage à l'autobus qui quitte son arrêt."],
+["À un arrêt de bus, tu peux…",["faire monter ou descendre un passager","attendre le bus","te garer pour la nuit"],0,"Un bref arrêt est permis, attendre est du stationnement."],
+["Sans marquage, à quelle distance du poteau d'arrêt de bus est-il interdit de stationner ?",["5 m de chaque côté","15 m de chaque côté","50 m de chaque côté"],1,"Le stationnement est interdit à moins de 15 m de part et d'autre du poteau."],
+["Un site spécial franchissable est réservé…",["aux voitures qui tournent","au tram et au bus","aux piétons"],1,"Il est réservé aux transports en commun, sauf panneau additionnel."]]],
+
+["Piétons, cyclistes et usagers fragiles",`
+<ul><li>Les piétons marchent sur le <b>trottoir</b> et traversent sur les passages prévus.</li><li>Les cyclistes utilisent la <b>piste cyclable</b> quand il y en a une.</li><li>Avant de tourner à droite, regarde dans le rétroviseur et dans l'angle mort : un vélo ou un piéton peut s'y cacher.</li><li>Avant d'ouvrir ta portière, regarde derrière toi.</li><li>Près des écoles, des arrêts de bus et des zones résidentielles, ralentis : enfants et piétons peuvent surgir.</li></ul>`,[
+["Tu vas tourner à droite. Que vérifies-tu ?",["Seulement devant","Le rétroviseur et l'angle mort","Rien, j'ai la priorité"],1,"Un vélo ou un piéton peut se cacher dans l'angle mort."],
+["Avant d'ouvrir ta portière, tu…",["regardes derrière toi","l'ouvres vite","klaxonnes"],0,"Un cycliste peut arriver derrière toi."],
+["Tu approches d'une école. Tu…",["ralentis","accélères","gardes ta vitesse"],0,"Les enfants peuvent surgir : ralentis."]]],
+
+["Météo, éclairage et distance",`
+<ul><li><b>Éclairage</b> : feux de croisement la nuit, et de jour quand la visibilité est sous 200 m (pluie, brouillard, neige). Feux de route : seulement si tu n'éblouis personne.</li><li><b>Distance d'arrêt</b> = distance de réaction + distance de freinage. Elle augmente avec la vitesse, la pluie et la fatigue.</li><li>Sur route mouillée, ralentis et garde plus de distance.</li><li><b>Aquaplanage</b> : lève le pied, tiens le volant, ne freine pas brusquement.</li><li>Ébloui par des phares ? Ralentis et regarde le bord droit de la route.</li><li><b>Pneus</b> : profondeur de sculpture minimale de 1,6 mm.</li></ul>`,[
+["La distance d'arrêt, c'est…",["distance de réaction + distance de freinage","la distance de freinage seule","la distance de réaction seule"],0,"Tu parcours de la distance avant même de freiner."],
+["Tu glisses sur une flaque (aquaplanage). Tu…",["freines fort","lèves le pied sans freiner brusquement","accélères"],1,"Lève le pied et tiens le volant."],
+["Profondeur minimale de sculpture des pneus ?",["0,5 mm","1,6 mm","3 mm"],1,"1,6 mm au minimum."],
+["Tu croises un véhicule la nuit. Tu passes en…",["feux de route","feux de croisement","aucun feu"],1,"Les feux de route éblouissent : passe en croisement."]]],
+
+["Les feux de la voiture et le klaxon",`
+<h3>Les quatre types de feux</h3>
+<ul>
+<li><b>Feux de croisement</b> : éclairent la route sans éblouir.</li>
+<li><b>Feux de route</b> : portent le plus loin.</li>
+<li><b>Feux antibrouillard avant</b> : pas obligatoires, parfois absents.</li>
+<li><b>Feux de position</b> : ceux qui éclairent le moins.</li>
+</ul>
+<p>Quand tu allumes les feux de croisement ou de route, les feux de position avant et les feux rouges arrière s'allument aussi.</p>
+<h3>Quand les allumer en roulant ?</h3>
+<ul>
+<li>Dès que la nuit tombe, jusqu'au lever du jour.</li>
+<li>De jour, quand la visibilité est <b>inférieure à 200 m</b> : pluie, brouillard, neige, fumée d'incendie, orage.</li>
+<li>Ne pas allumer les feux de croisement quand c'est obligatoire est une infraction grave.</li>
+</ul>
+<h3>Quand les feux de route sont interdits</h3>
+<ul>
+<li>Sur une route éclairée de façon continue et suffisante pour voir à 100 m.</li>
+<li>Si tu risques d'éblouir les usagers qui viennent en face.</li>
+<li>Si tu suis un véhicule à moins de 50 m, sauf si tu vas le dépasser tout de suite.</li>
+<li>À l'approche d'un véhicule sur rails ou d'un bateau qui vient en sens inverse.</li>
+</ul>
+<h3>Feux de brouillard</h3>
+<ul>
+<li><b>Avant</b> : jamais obligatoires. Autorisés seulement par brouillard, chute de neige ou forte pluie. Ils remplacent ou complètent les feux de croisement ou de route.</li>
+<li><b>Arrière</b> (rouges) : obligatoires par brouillard ou neige quand la visibilité est sous environ 100 m, et toujours par forte pluie.</li>
+<li>Tu entres dans un banc de brouillard : réduis ta vitesse progressivement.</li>
+</ul>
+<h3>À l'arrêt ou en stationnement</h3>
+<ul>
+<li>Entre la tombée et le lever du jour, ou si la visibilité est sous 200 m : feux de position blancs ou ambrés à l'avant, rouges à l'arrière.</li>
+<li>En agglomération, un seul feu de stationnement (côté axe de la chaussée) peut les remplacer si le véhicule est rangé parallèlement à la route, sans remorque. Hors agglomération, c'est interdit.</li>
+</ul>
+<h3>Warnings et clignotants</h3>
+<ul>
+<li>Les quatre clignotants ensemble : seulement en panne, pour avertir d'un accident imminent, ou pour un autobus scolaire qui prend ou dépose des enfants.</li>
+<li>Les allumer parce que tu es mal garé est une infraction de plus.</li>
+<li>Autobus scolaire arrêté, quatre clignotants allumés : tu ralentis fortement et tu t'arrêtes si nécessaire, puis tu peux le dépasser avec précaution.</li>
+</ul>
+<h3>Le klaxon</h3>
+<ul>
+<li>De jour : pour éviter un accident, ou hors agglomération pour prévenir un conducteur que tu vas dépasser.</li>
+<li>De la tombée au lever du jour : seulement en cas de danger imminent. Sinon, appels de phares (feux de route et de croisement en alternance).</li>
+<li>Avertissements sonores brefs et sans excès.</li>
+</ul>`,[
+["Il pleut fort en plein jour, la visibilité est de 150 m. Que fais-tu ?",["J'allume les feux de croisement","Je n'allume rien","J'allume seulement les feux de position"],0,"Sous 200 m de visibilité, les feux de croisement sont obligatoires."],
+["Quand ne peux-tu pas utiliser les feux de route ?",["Si tu risques d'éblouir les usagers en face","Quand il fait nuit en campagne","Sur l'autoroute"],0,"Les feux de route sont interdits quand ils éblouissent."],
+["Quand les feux de brouillard arrière sont-ils obligatoires ?",["Par forte pluie, ou brouillard et neige sous environ 100 m de visibilité","Toujours la nuit","Jamais"],0,"Brouillard ou neige sous 100 m, et toujours par forte pluie."],
+["Tu allumes les quatre clignotants parce que tu es mal garé. C'est…",["une infraction supplémentaire","autorisé","obligatoire"],0,"Les warnings sont réservés aux pannes, aux dangers et aux bus scolaires."],
+["La nuit, tu veux prévenir un conducteur que tu vas dépasser, sans danger imminent. Tu…",["fais des appels de phares","klaxonnes longuement","klaxonnes brièvement"],0,"La nuit, on remplace le klaxon par des appels de phares."],
+["Un autobus scolaire est arrêté, quatre clignotants allumés. Tu…",["ralentis fortement et t'arrêtes si nécessaire","passes à pleine vitesse","t'arrêtes jusqu'à son départ"],0,"Tu ralentis fortement, tu t'arrêtes si nécessaire, puis tu peux dépasser avec précaution."]]],
+
+["Alcool, fatigue et accidents",`
+<ul><li><b>Alcool</b> : limite de 0,5 g/L de sang. Il réduit la vigilance et allonge le temps de réaction.</li><li><b>Drogues</b> : conduire sous leur influence est interdit. Certains médicaments altèrent aussi la conduite : lis la notice.</li><li><b>Fatigue</b> : fais des pauses régulières, environ toutes les deux heures sur un long trajet.</li></ul>
+<h3>En cas d'accident</h3>
+<ul><li>Sécurise les lieux : feux de détresse, triangle.</li><li>Appelle le <b>112</b> s'il y a des blessés (police : 101).</li><li>Ne déplace pas un blessé, sauf danger immédiat.</li><li>Tu dois t'arrêter et porter assistance : fuir est un délit.</li><li>Sans blessé, remplis un constat européen d'accident avec l'autre conducteur.</li></ul>`,[
+["Quel numéro appeler en cas d'accident avec blessés ?",["112","1000","999"],0,"Le 112 est le numéro d'urgence européen."],
+["Après un accident avec un blessé, tu…",["t'arrêtes et portes assistance","pars vite","continues ta route"],0,"S'arrêter et porter assistance est obligatoire."],
+["Sur un long trajet, tu fais une pause…",["régulièrement","jamais","seulement à l'arrivée"],0,"La fatigue réduit la vigilance : fais des pauses."]]],
+
+["Accident, panne et tunnel",`
+<h3>Panne ou accident sans blessé</h3>
+<ul>
+<li>Gare d'abord le véhicule à un endroit autorisé et retire vite le chargement tombé sur la chaussée.</li>
+<li>Si c'est impossible : triangle, feux de détresse s'ils marchent, moteurs coupés, personne ne fume.</li>
+<li><b>Triangle</b> : à 30 m minimum sur route ordinaire, 100 m sur autoroute, visible à 50 m. En agglomération, il peut aller sur le toit.</li>
+<li>À bord, toujours : triangle, extincteur (1 kg de poudre, accessible en 10 secondes), gilet réfléchissant pour le conducteur, trousse de secours.</li>
+<li>Sans blessé, la police n'est pas obligatoire : les conducteurs remplissent et signent le <b>constat européen</b>. Après signature, le recto ne se modifie plus. Désaccord ou refus de signer : appelle la police.</li>
+<li>Tu dois rester sur place. À partir de 15 ans, tu montres ta carte d'identité si on te la demande.</li>
+</ul>
+<h3>Accident avec blessés</h3>
+<ul>
+<li>La police doit toujours intervenir.</li>
+<li>Évalue : où ? combien de blessés ? des personnes bloquées ? un incendie ?</li>
+<li>Ne déplace pas la victime, sauf incendie ou risque d'incendie. Ne retire pas le casque, sauf difficulté à respirer. Ne donne ni boisson ni médicament.</li>
+<li>Forte hémorragie : couvre la plaie ou fais un bandage. Ne noue pas le membre au-dessus.</li>
+<li>Sur autoroute ou route pour automobiles, le conducteur enfile son gilet pour sortir et attend derrière les glissières.</li>
+<li>Embouteillage sur au moins deux bandes dans ton sens : forme à l'avance un <b>couloir de secours</b> entre la bande de gauche et celle de droite (à trois bandes : entre la gauche et la centrale).</li>
+</ul>
+<h3>Tunnels</h3>
+<ul>
+<li>Allume les feux de croisement bien avant d'entrer (obligatoire si la visibilité est sous 200 m), retire tes lunettes de soleil, garde ta distance.</li>
+<li>Interdit dans un tunnel : s'arrêter, stationner, faire demi-tour, reculer.</li>
+<li>Accident : appelle les secours avec le téléphone d'urgence du tunnel, sinon le 112.</li>
+<li>Feu ou fumée dense : gare-toi à droite, laisse la clé sur le contact et sors par la sortie de secours la plus proche.</li>
+</ul>
+<p>Quitter les lieux d'un accident pour échapper aux constatations est un délit de fuite, sévèrement puni.</p>`,[
+["À quelle distance minimale place-t-on le triangle sur une route ordinaire ?",["10 m","30 m","100 m"],1,"30 m sur route ordinaire, 100 m sur autoroute."],
+["Accident sans blessé, l'autre conducteur est d'accord. Que faites-vous ?",["Vous remplissez et signez un constat européen","Vous appelez toujours la police","Vous partez chacun de votre côté"],0,"Sans blessé, le constat européen suffit."],
+["Un blessé est coincé dans une voiture, sans risque d'incendie. Tu…",["le sors vite","évites de le déplacer et appelles les secours","lui donnes à boire"],1,"On ne déplace pas une victime sans nécessité."],
+["Dans un tunnel, il est interdit de…",["faire demi-tour","allumer ses feux de croisement","rouler à droite"],0,"Arrêt, stationnement, demi-tour et marche arrière y sont interdits."],
+["Embouteillage sur deux bandes dans ton sens. Tu…",["formes un couloir de secours entre les deux bandes","te colles aux autres voitures","roules sur la bande d'arrêt d'urgence"],0,"Le couloir de secours se forme avant l'arrêt de la circulation."],
+["Que dois-tu toujours avoir dans ta voiture ?",["Triangle, extincteur, gilet et trousse de secours","Seulement un triangle","Un gilet pour chaque passager"],0,"Ces quatre éléments sont obligatoires."]]],
+
+["Alcool et drogues : les contrôles",`
+<ul>
+<li><b>Qui peut être contrôlé ?</b> Tout conducteur, cycliste ou cavalier, un moniteur ou guide, et l'auteur (même présumé) ou la victime d'un accident, piéton compris. Pas les passagers.</li>
+<li><b>Test d'haleine</b> (simple indication) : <b>S</b> = sous la limite, tu peux conduire. <b>A</b> = au moins 0,22 mg/L (0,5 ‰) et moins de 0,35 mg/L (0,8 ‰). <b>P</b> = au moins 0,35 mg/L (0,8 ‰). Avec A ou P, tu passes à l'analyse de l'haleine.</li>
+<li>Refuser le test : tu es considéré comme positif, interdiction de conduire 12 heures et retrait du permis 15 jours.</li>
+<li><b>Analyse de l'haleine</b> (mesure précise, avec ticket) : sous 0,22 mg/L, tu peux conduire. Entre 0,22 et 0,35 mg/L : interdiction de conduire 12 heures (depuis le 1er juillet 2026) et amende. À partir de 0,35 mg/L : 12 heures, retrait du permis 15 jours et amende.</li>
+<li>Si l'haleine est impossible (hôpital, asthme), un médecin fait une prise de sang.</li>
+<li><b>Drogues</b> : test salivaire seulement sur soupçon objectif, ou toujours après un accident. Résultat positif : permis remis 12 heures, retrait immédiat possible, interdiction de conduire jusqu'à 5 ans.</li>
+<li>Alcool avec drogues ou certains médicaments : encore plus dangereux.</li>
+<li><b>Récidive</b> dans les 3 ans : le juge doit prononcer au moins 3 mois d'interdiction (6 mois à la 2e récidive, 9 mois à la 3e) et imposer des examens.</li>
+<li><b>Éthylotest antidémarrage</b> : le moteur ne démarre pas à 0,2 ‰ ou plus. Obligatoire à partir de 1,8 ‰, sauf décision motivée du juge.</li>
+</ul>`,[
+["Qui peut être soumis à un contrôle d'alcoolémie ?",["Un cycliste","Un passager","Un piéton qui n'est pas impliqué dans un accident"],0,"Les cyclistes et cavaliers aussi, mais pas les passagers."],
+["Le test d'haleine affiche « A ». Cela signifie…",["au moins 0,22 mg/L et moins de 0,35 mg/L : analyse de l'haleine","sous la limite légale","une autorisation de conduire"],0,"Un A mène à une analyse de l'haleine."],
+["La limite légale de 0,5 ‰ correspond à combien dans l'air expiré ?",["0,11 mg/L","0,22 mg/L","0,35 mg/L"],1,"0,22 mg/L d'air expiré."],
+["Quand la police peut-elle imposer un test salivaire hors accident ?",["Sur soupçon objectif de consommation de drogues","Toujours","Jamais"],0,"Après un accident, elle peut toujours l'imposer."],
+["Un éthylotest antidémarrage…",["empêche le moteur de démarrer à 0,2 ‰ ou plus","limite la vitesse","est obligatoire pour tous"],0,"Il est imposé par un juge après une infraction liée à l'alcool."]]],
+
+["La technique de la voiture",`
+<h3>Les pneus</h3>
+<ul>
+<li>Rainures d'au moins <b>1,6 mm</b> (minimum légal : sous 2 mm, le risque d'aquaplanage augmente). Les témoins d'usure (TWI) indiquent quand changer.</li>
+<li>Interdit de recreuser ou de rechaper des pneus usés.</li>
+<li>Pression : celle du constructeur, mesurée à <b>froid</b>. Long trajet ou lourde charge : +0,2 bar. Trop peu gonflé : usure sur les bords. Trop gonflé : usure au centre.</li>
+<li>Pneus cloutés : du 1er novembre au 31 mars, véhicule de 3,5 t maximum, 90 km/h sur autoroute et 60 km/h sur route ordinaire.</li>
+<li>Chaînes à neige : seulement s'il y a de la neige ou du verglas. Pneus hiver conseillés sous 7 °C.</li>
+<li>Lire un pneu <b>165/70 R 14 81 T</b> : 165 = largeur en mm, 70 = rapport hauteur/largeur, R = radial, 14 = diamètre de la jante en pouces, 81 = indice de charge, T = indice de vitesse.</li>
+<li>Code DOT à 4 chiffres : semaine puis année de fabrication (2522 = semaine 25 de 2022).</li>
+<li>Permute les pneus en croix tous les 10 000 à 15 000 km. Serre les boulons en croix ou en étoile.</li>
+</ul>
+<h3>Huile, freins, batterie</h3>
+<ul>
+<li><b>Huile moteur</b> : lubrifie et évite la surchauffe. Contrôle le niveau moteur froid, voiture sur sol plat, surtout avant un long trajet.</li>
+<li><b>Freins</b> : contrôle le liquide, change les plaquettes à temps (elles crissent quand elles sont usées).</li>
+<li><b>Liquide de refroidissement</b> : évite la surchauffe et le gel. Contrôle son niveau.</li>
+<li><b>Batterie</b> : fournit le courant de démarrage. <b>Alternateur</b> : produit l'électricité en roulant et recharge la batterie.</li>
+</ul>
+<h3>Conduite</h3>
+<ul>
+<li>Virage : ralentis avant, rétrograde si besoin, ne freine pas dans le virage.</li>
+<li>Boîte manuelle : monte un rapport vers 2 500 tr/min en essence, 2 000 en diesel. Pied gauche sur le repose-pied, pas sur l'embrayage. Forte côte : rétrograde d'un rapport.</li>
+<li><b>ESP</b> : freine des roues séparément pour éviter un dérapage.</li>
+</ul>
+<h3>Dérapage</h3>
+<ul>
+<li><b>Train avant</b> (la voiture sort du virage) : ne freine pas trop fort.</li>
+<li><b>Train arrière</b> : pas de freinage brutal ni de mouvement brusque. Regarde où tu veux aller, contre-braque, débraye et lâche l'accélérateur.</li>
+<li><b>Aquaplanage</b> (quatre roues) : dirige le volant où tu veux aller et ne freine pas.</li>
+<li>Avec ABS, si tu dérapes, appuie fort sur le frein pour activer l'ABS.</li>
+</ul>`,[
+["Quand vérifier la pression des pneus ?",["À froid","Après une longue route","Seulement en été"],0,"La chaleur modifie la pression : mesure à froid."],
+["Sur un pneu 165/70 R 14, que représente 165 ?",["La largeur en mm","L'indice de vitesse","Le diamètre de la jante"],0,"165 = largeur du pneu en millimètres."],
+["Un code DOT « 2522 » signifie…",["fabriqué en semaine 25 de 2022","fabriqué le 25 février 2022","pression de 2,5 bar"],0,"Deux chiffres pour la semaine, deux pour l'année."],
+["Les pneus cloutés sont autorisés…",["du 1er novembre au 31 mars","toute l'année","seulement sur autoroute"],0,"Uniquement du 1er novembre au 31 mars."],
+["Quand contrôler le niveau d'huile ?",["Moteur froid, voiture sur sol plat","Moteur très chaud, en côte","Jamais"],0,"Moteur froid et voiture sur sol plat."],
+["Le train arrière dérape. Tu…",["regardes où tu veux aller et contre-braques","freines fort","accélères"],0,"Regarde vers ta trajectoire, contre-braque, débraye et lâche l'accélérateur."],
+["Que fait l'ESP ?",["Il freine des roues séparément pour éviter un dérapage","Il bloque les roues","Il règle la pression des pneus"],0,"Il aide à garder la voiture sur sa trajectoire."]]],
+
+["MMA, MEC et documents de bord",`
+<h3>Que peux-tu conduire avec le permis B ?</h3>
+<p>Une voiture, une voiture mixte, un minibus, ou une camionnette dont la <b>MMA</b> ne dépasse pas <b>3 500 kg</b>.</p>
+<h3>MMA et MEC</h3>
+<ul>
+<li><b>MMA</b> (masse maximale autorisée) : poids total maximal du véhicule, carburant, conducteur, passagers et chargement compris. Elle est fixée par le constructeur et figure sur le certificat d'immatriculation.</li>
+<li><b>MEC</b> (masse en charge) : poids réel du véhicule à un moment donné, avec les personnes et la charge, tel qu'une balance le mesure.</li>
+<li>Exemple : voiture vide 1 500 kg, conducteur 75 kg, passager 40 kg, sac de 50 kg : MEC = 1 665 kg. Avec une MMA de 2 200 kg, tu es largement en dessous.</li>
+<li>Un panneau de limite de masse en charge (sur un pont par exemple) concerne le poids réel. Un panneau additionnel « 3,5 t » sous un panneau de vitesse ou d'interdiction de dépasser vise les véhicules dont la MMA dépasse 3,5 t : une voiture n'est pas concernée.</li>
+</ul>
+<h3>Un exemple de lecture</h3>
+<p>Sur une route à deux fois deux bandes (120 km/h en principe), un panneau limite à 60 km/h les véhicules de plus de 3,5 t de MMA, et un second limite les autres à 90 km/h. Ta voiture roule à 90 km/h maximum.</p>
+<h3>À avoir dans la voiture</h3>
+<ul>
+<li>Un triangle, une trousse de secours, un extincteur de 1 kg de poudre accessible en 10 secondes, un gilet réfléchissant dans l'habitacle.</li>
+<li>Un extincteur même un peu utilisé doit être remplacé.</li>
+<li>Le conducteur enfile le gilet avant de sortir en cas de panne ou d'accident sur autoroute ou route pour automobiles.</li>
+</ul>
+<h3>Documents</h3>
+<ul>
+<li>Sur toi : carte d'identité et permis de conduire, en original. Une attestation de perte ou une demande de duplicata ne te permet pas de conduire.</li>
+<li>Dans la voiture : certificat de conformité, certificat d'immatriculation, certificat d'assurance, et certificat de contrôle technique dès que la voiture a 4 ans. Ce sont des originaux, sauf l'assurance, qui peut être une copie ou une image sur ton téléphone.</li>
+</ul>`,[
+["Avec le permis B, tu peux conduire une camionnette dont la MMA ne dépasse pas…",["3 500 kg","5 000 kg","7 500 kg"],0,"Le permis B vaut jusqu'à 3 500 kg de MMA."],
+["La MEC, c'est…",["le poids réel du véhicule à un moment donné","le poids maximal fixé par le constructeur","la charge utile"],0,"La MEC se mesure sur une balance, avec personnes et charge."],
+["Où trouve-t-on la MMA d'une voiture ?",["Sur le certificat d'immatriculation","Sur le disque de stationnement","Sur la plaque d'immatriculation"],0,"Elle est mentionnée sur le certificat d'immatriculation."],
+["Un panneau de vitesse porte un panneau additionnel « 3,5 t » (MMA). Ta voiture est-elle concernée ?",["Non, il vise les véhicules dont la MMA dépasse 3,5 t","Oui","Seulement la nuit"],0,"Une voiture a une MMA de 3,5 t ou moins."],
+["Quel extincteur est obligatoire dans une voiture ?",["1 kg de poudre, accessible en 10 secondes","6 kg de poudre","Aucun"],0,"Il doit contenir 1 kg de poudre et être accessible en 10 secondes."],
+["Quel document peut être présenté en copie ?",["Le certificat d'assurance","Le permis de conduire","Le certificat d'immatriculation"],0,"Seul le certificat d'assurance peut être une copie."]]],
+
+["Chargement, ceinture et enfants",`
+<h3>Règle générale</h3>
+<p>Un chargement ne gêne pas les autres usagers, n'abîme rien, ne réduit pas la visibilité, ne se détache pas et ne compromet pas la stabilité.</p>
+<h3>Dimensions</h3>
+<ul>
+<li><b>Hauteur</b> maximale, chargement compris : 4 m. <b>Largeur</b> maximale, saillies comprises : 2,55 m. Au-delà : transport exceptionnel. Des panneaux peuvent imposer une limite plus basse (ponts, tunnels, routes étroites).</li>
+<li><b>Longueur</b> : à l'avant, le chargement ne dépasse jamais la carrosserie. À l'arrière, il dépasse de 1 m au maximum.</li>
+<li>Charge indivisible plus longue : jusqu'à 3 m à l'arrière, avec le panneau d'avertissement à bandes rouges et blanches (0,50 m de côté). Si l'éclairage est requis, ajoute un feu rouge arrière et un catadioptre orange de chaque côté.</li>
+<li>Le chargement ne couvre jamais les feux arrière ni la plaque d'immatriculation.</li>
+<li>Le panneau de longueur maximale vise tous les véhicules, remorque et chargement compris. Voiture + caravane = train de véhicules.</li>
+<li>Objets lourds dans le coffre, pas sur le toit. Retire le coffre de toit quand tu n'en as plus besoin : il augmente la consommation.</li>
+</ul>
+<h3>Places et ceinture</h3>
+<ul>
+<li>Conducteur : au moins 55 cm de largeur. Passager avant : 40 cm. Banquette avant à trois places : au moins 135 cm.</li>
+<li>Appui-tête : son sommet à la hauteur du haut de ta tête.</li>
+<li>La ceinture se porte au-dessus de l'épaule, par le conducteur et les passagers quand elle existe.</li>
+<li>Pas de ceinture obligatoire pour : le conducteur qui recule, le taxi avec clients, le facteur en tournée, les agents et services de secours si leur mission l'exige, une exemption médicale. Les femmes enceintes la portent.</li>
+</ul>
+<h3>Enfants</h3>
+<ul>
+<li>Moins de 18 ans et moins de 1,35 m : dispositif de retenue adapté et homologué.</li>
+<li>Plus de 1,35 m : dispositif ou ceinture.</li>
+<li>Dispositif placé dos à la route sur un siège avec airbag frontal : interdit, sauf si l'airbag est désactivé.</li>
+<li>Exception : un enfant de plus de 3 ans et de moins de 1,35 m, sur une courte distance, exceptionnellement, dans un véhicule conduit par quelqu'un qui n'est pas son parent : ceinture seule, mais jamais à l'avant.</li>
+</ul>
+<h3>Chargements dangereux et angle mort</h3>
+<ul>
+<li>Les panneaux interdisant les marchandises dangereuses, inflammables ou explosives, ou polluantes visent le chargement, pas le carburant : une voiture au GPL peut passer.</li>
+<li>Angle mort : zone que les rétroviseurs ne montrent pas. Si le voyant du rétroviseur est allumé, tu ne dépasses pas, et tu regardes aussi par-dessus l'épaule.</li>
+</ul>`,[
+["Hauteur maximale d'un véhicule chargé ?",["4 m","3 m","5 m"],0,"4 m, chargement compris."],
+["Largeur maximale d'un véhicule chargé, saillies comprises ?",["2,55 m","2 m","3 m"],0,"2,55 m. Au-delà, c'est un transport exceptionnel."],
+["De combien un chargement ordinaire peut-il dépasser à l'arrière ?",["1 m au maximum","3 m","50 cm"],0,"1 m au maximum. Jusqu'à 3 m seulement pour une charge indivisible signalée."],
+["Qui peut ne pas porter la ceinture ?",["Un conducteur qui fait marche arrière","Un passager adulte à l'arrière","Un conducteur sur autoroute"],0,"Le conducteur qui recule est dispensé."],
+["Un enfant de moins de 18 ans mesure 1,20 m. Il voyage…",["dans un dispositif de retenue adapté et homologué","avec la ceinture seule","sans retenue, à l'arrière"],0,"Sous 1,35 m, un dispositif de retenue est obligatoire."],
+["Peut-on placer un siège enfant dos à la route sur un siège avec airbag frontal activé ?",["Non","Oui","Oui, si l'enfant a plus de 3 ans"],0,"Seulement si l'airbag est désactivé."],
+["Ta voiture roule au GPL. Peux-tu franchir un panneau interdisant les marchandises inflammables ?",["Oui, il vise le chargement, pas le carburant","Non","Seulement la nuit"],0,"Le panneau concerne le chargement transporté."]]],
+
+["L'autoroute en détail",`
+<h3>Principes</h3>
+<ul>
+<li>Début et fin signalés par des panneaux : pas de feux, pas de carrefours. Interdite aux cyclomoteurs, véhicules agricoles, quadricycles sans habitacle et trains de véhicules forains. Le permis provisoire autorise l'autoroute en voiture.</li>
+<li><b>Vitesse</b> : maximum 120 km/h si les conditions le permettent et si rien ne l'interdit. <b>Minimum 70 km/h</b> si les conditions le permettent. Un véhicule incapable d'atteindre 70 km/h en palier n'y roule pas.</li>
+<li>Panneau de limitation par bande : par exemple 90 km/h sur les deux bandes de gauche et 70 km/h sur celle de droite. En cas de smog : 90 km/h temporaire.</li>
+<li>Dans une sortie portant le panneau de vitesse adapté : 90 km/h maximum.</li>
+<li>Pneus cloutés (du 1er novembre au 31 mars) : 90 km/h maximum sur autoroute.</li>
+</ul>
+<h3>Bande d'arrêt d'urgence</h3>
+<ul>
+<li>Elle commence après la large ligne blanche continue à droite. Tu n'y circules pas, tu ne t'y arrêtes pas, tu ne t'y gares pas, sauf panne ou accident. Pas pour consulter une carte ni répondre au téléphone.</li>
+<li>En panne : triangle à 100 m, gilet avant de sortir, attente derrière les barrières. Appelle le 112 en précisant le numéro de la route, le kilomètre et le sens. Dans les tunnels, utilise la borne d'appel si elle existe.</li>
+<li>Des lignes orange de travaux peuvent autoriser de rouler sur une zone d'évitement ou une bande d'arrêt d'urgence.</li>
+</ul>
+<h3>Couloir de secours</h3>
+<ul>
+<li>Deux bandes : celui de gauche serre à gauche, celui de droite serre à droite.</li>
+<li>Plus de deux bandes : la bande de gauche serre à gauche, toutes les autres serrent à droite. Le couloir se forme à côté de la bande de gauche.</li>
+</ul>
+<h3>Dépasser et embouteillages</h3>
+<ul>
+<li>Roule le plus à droite possible et dépasse par la gauche. Rester inutilement au milieu ou à gauche est une infraction, comme dépasser par la droite (infraction grave).</li>
+<li>En embouteillage, une file de droite qui avance plus vite que celle de gauche ne constitue pas un dépassement.</li>
+<li>Motos en embouteillage : elles peuvent rouler entre les deux bandes de gauche, à 50 km/h maximum et au plus 20 km/h plus vite que les autres.</li>
+</ul>
+<h3>Entrer et sortir</h3>
+<ul>
+<li>Sur la bande d'accès, tu cèdes le passage aux véhicules déjà sur l'autoroute. Tu peux t'insérer avant la fin de la bande. La tirette ne s'applique pas sur une bande d'accès.</li>
+<li>Pour faciliter l'insertion, ceux de la bande de droite peuvent se décaler vers la gauche s'ils ne gênent personne.</li>
+<li>Pour sortir, ne commence à freiner qu'une fois sur la bande de sortie.</li>
+</ul>
+<h3>Interdit sur l'autoroute</h3>
+<ul>
+<li>S'arrêter ou se garer sur la chaussée, la bande d'arrêt d'urgence, les accès et les sorties.</li>
+<li>Circuler sur la berme centrale ou les raccordements transversaux.</li>
+<li>Faire marche arrière, même si tu as raté la sortie.</li>
+<li>Rouler en sens contraire.</li>
+<li>Remorquer avec une attache de fortune.</li>
+</ul>
+<h3>Conducteur fantôme et bande des heures de pointe</h3>
+<ul>
+<li>Conducteur fantôme : ralentis, serre à droite (même sur la bande d'arrêt d'urgence si nécessaire), fais un appel de phares seulement en le croisant, appelle le 112.</li>
+<li>Bande des heures de pointe (ligne blanche striée) : flèche verte = utilisable. Croix rouge = interdite, sauf pour entrer ou sortir de l'autoroute. En panne : rejoins un refuge si possible, sinon signale la panne avec le triangle.</li>
+</ul>`,[
+["Vitesse minimale sur autoroute, si les conditions le permettent ?",["70 km/h","50 km/h","90 km/h"],0,"70 km/h minimum, 120 km/h maximum."],
+["Tu as raté ta sortie d'autoroute. Que fais-tu ?",["Je continue jusqu'à la sortie suivante","Je fais marche arrière","Je fais demi-tour sur la berme centrale"],0,"La marche arrière est interdite, même après une sortie manquée."],
+["Un véhicule te dépasse par la droite sur l'autoroute. C'est…",["une infraction grave","autorisé","toléré la nuit"],0,"On dépasse par la gauche. Dépasser par la droite est une infraction grave."],
+["Tu entres sur l'autoroute par la bande d'accès. Tu…",["cèdes le passage aux véhicules déjà sur l'autoroute","passes en premier","appliques la tirette"],0,"La tirette ne s'applique pas sur une bande d'accès."],
+["Embouteillage sur trois bandes. Le couloir de secours se forme…",["à côté de la bande de gauche : celle-ci serre à gauche, les autres à droite","entre la bande de droite et la bande d'arrêt d'urgence","au milieu des trois bandes"],0,"Gauche à gauche, toutes les autres à droite."],
+["Un conducteur fantôme arrive en face. Tu…",["ralentis, serres à droite et appelles le 112","accélères","klaxonnes longuement"],0,"Ralentis, serre à droite et appelle le 112."]]],
+
+["Les agents et les véhicules prioritaires",`
+<h3>Les gestes d'un agent qualifié</h3>
+<ul>
+<li><b>Un bras levé verticalement</b> : tous les usagers s'arrêtent. Ceux déjà engagés dans le carrefour le dégagent au plus vite.</li>
+<li><b>Un ou deux bras tendus horizontalement</b> : ceux qui vont vers son ventre ou son dos s'arrêtent. Ceux qui arrivent de son côté, ou du côté de la main tendue, peuvent continuer : tout droit ou en tournant à gauche ou à droite. Deux bras tendus donnent la même consigne qu'un seul.</li>
+<li><b>Torche rouge balancée</b> vers toi : tu t'arrêtes. L'agent peut aussi t'obliger à tourner dans la direction qu'il indique.</li>
+<li><b>Mouvement vertical du bras</b> (de haut en bas) : ralentis. <b>Mouvement rotatif</b> : accélère.</li>
+<li><b>Le sifflet</b> n'est pas une injonction : il attire seulement ton attention avant la consigne.</li>
+<li>Une injonction peut aussi être donnée à la voix. Elle vaut pour les conducteurs et pour les piétons, et l'agent n'a pas à se justifier. Si on te demande de déplacer ton véhicule arrêté ou stationné, tu le déplaces.</li>
+</ul>
+<h3>Personnes autorisées</h3>
+<ul>
+<li>Surveillants habilités, capitaines de route, signaleurs d'une course cycliste, chefs de groupe de piétons ou de cavaliers : tu suis leurs indications, mais ce ne sont <b>pas des agents qualifiés</b>. Ils ne donnent pas d'injonctions et ne règlent pas la circulation.</li>
+<li>Dans un carrefour sans feux, une personne autorisée peut arrêter la circulation si elle est identifiable et brandit le signal <b>C3</b> à bout de bras.</li>
+<li>Après un accident ou une panne, le conducteur ne peut pas régler la circulation.</li>
+<li>Un pompier peut régler la circulation et donner des ordres là où il intervient, mais il ne rédige pas de procès-verbal.</li>
+</ul>
+<h3>Véhicules prioritaires</h3>
+<ul>
+<li>Ils portent un <b>feu bleu clignotant</b> et un avertisseur sonore spécial (police, ambulance, pompiers).</li>
+<li>Feu bleu <b>seul</b> : tu continues normalement.</li>
+<li>Feu bleu <b>et</b> avertisseur sonore : tu dégages immédiatement la chaussée pour céder le passage, en ralentissant ou en t'arrêtant si nécessaire.</li>
+</ul>
+<h3>Ordre hiérarchique</h3>
+<ol>
+<li>Les injonctions des agents qualifiés</li>
+<li>Les signaux lumineux</li>
+<li>Les signaux routiers</li>
+<li>Les règles générales</li>
+</ol>
+<p>Même une ambulance avec feu bleu et sirène s'arrête si un agent l'ordonne. Cet ordre ne s'applique pas au feu orange clignotant, aux signaux lumineux au-dessus des bandes, ni aux signaux de priorité B22 et B23. Le 112 est le numéro d'urgence : si une borne d'appel est proche, utilise-la de préférence.</p>`,[
+["Un agent lève un bras verticalement. Tu…",["t'arrêtes","passes si c'est libre","ralentis seulement"],0,"Un bras levé verticalement : tous les usagers s'arrêtent."],
+["Un agent tend un bras horizontalement. Tu arrives vers son dos. Tu…",["t'arrêtes","continues","tournes à droite"],0,"Ceux qui vont vers son ventre ou son dos s'arrêtent."],
+["Un agent siffle. Cela signifie…",["qu'il veut attirer ton attention : ce n'est pas une injonction","que tu dois t'arrêter","que tu dois accélérer"],0,"Le sifflet prévient seulement qu'une injonction va suivre."],
+["Un feu bleu clignote, sans avertisseur sonore. Tu…",["continues à rouler normalement","dégages la chaussée","t'arrêtes"],0,"Sans avertisseur sonore, le véhicule n'est pas prioritaire."],
+["Une ambulance (feu bleu et sirène) arrive, mais un agent lui ordonne de s'arrêter. Elle…",["doit s'arrêter","passe quand même","passe en priorité"],0,"Les injonctions d'un agent passent avant tout."],
+["Qui est un agent qualifié ?",["Un policier","Le capitaine de route d'une course cycliste","Le conducteur d'un véhicule en panne"],0,"Les personnes autorisées ne sont pas des agents qualifiés."]]],
+
+["Direction obligatoire et sens unique",`
+<p>Deux panneaux bleus portant une flèche se ressemblent : ne les confonds pas.</p>
+<div class="signs">${sg(`<circle cx="30" cy="30" r="27" fill="#0b57a4"/><path d="M13 30H47M47 30 36 19M47 30 36 41" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,"Rond bleu : direction obligatoire")}${sg(`<rect x="4" y="9" width="52" height="42" rx="4" fill="#0b57a4"/><path d="M13 30H47M47 30 36 19M47 30 36 41" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,"Carré bleu : sens unique")}</div>
+<ul>
+<li><b>Rond bleu avec flèche</b> (obligation) : tu <b>dois</b> suivre la direction indiquée, selon la disposition des lieux : tout droit, à gauche ou à droite.</li>
+<li><b>Carré bleu avec flèche</b> (indication) : la voie est à <b>sens unique</b>.</li>
+<li>Un rond bleu avec plusieurs flèches : tu dois suivre l'une des directions indiquées.</li>
+<li>Un panneau additionnel peut dispenser les cyclistes et les cyclomoteurs de classe A de suivre cette direction, ou leur permettre de rouler dans les deux sens.</li>
+</ul>
+<h3>Obstacle et choix du côté</h3>
+<ul>
+<li>Une flèche en diagonale vers le bas, placée sur un obstacle (poteau ou borne jaune), indique de quel côté le contourner.</li>
+<li>Un signal d'indication avec deux flèches, sur un poteau ou une borne jaune : tu peux passer à gauche ou à droite.</li>
+</ul>
+<h3>Îlots directionnels</h3>
+<p>Sans panneau, des marques hachurées au sol (îlot peint) ou des îlots construits te guident. Tu les contournes par la <b>droite</b>. Il est interdit d'y circuler, de s'y arrêter ou de s'y garer.</p>`,[
+["Un rond bleu avec une flèche vers la gauche signifie…",["tu dois tourner à gauche","la voie est à sens unique","tu peux choisir ta direction"],0,"Rond bleu : obligation de suivre la flèche."],
+["Un carré bleu avec une flèche signifie…",["la voie est à sens unique","tu dois suivre la flèche","tu peux passer à gauche ou à droite"],0,"Carré bleu : signal d'indication, voie à sens unique."],
+["Un signal d'indication avec deux flèches sur un poteau jaune signifie…",["tu peux passer à gauche ou à droite","tu dois passer à droite","tu dois passer à gauche"],0,"Passage autorisé à droite ou à gauche."],
+["Tu vois un îlot directionnel, peint ou construit. Tu le contournes…",["par la droite","par la gauche","en roulant dessus"],0,"On le contourne par la droite, sans y circuler ni s'y arrêter."],
+["Une flèche en diagonale vers le bas sur un obstacle indique…",["le côté par lequel tu dois le contourner","un sens unique","une zone de stationnement"],0,"Elle montre de quel côté passer."]]],
+
+["Agglomération, zones et rues spéciales",`
+<h3>L'agglomération</h3>
+<ul>
+<li>C'est un espace dont les accès portent un panneau de <b>début</b>. Tu la quittes en passant le panneau de <b>fin</b>.</li>
+<li>Le panneau jaune à bord rouge n'indique que la limite administrative d'une commune : il n'a aucun effet sur le code de la route.</li>
+<li><b>Vitesse</b> : 50 km/h en agglomération, <b>30 km/h</b> en Région de Bruxelles-Capitale.</li>
+<li>Exception : un panneau de limitation placé au-dessus ou juste après le panneau d'entrée fixe une autre vitesse jusqu'au prochain carrefour. Si c'est un <b>30</b> placé au-dessus du panneau de début, il vaut dans toute l'agglomération.</li>
+<li>Hors agglomération : <b>90 km/h</b> en Wallonie, <b>70 km/h</b> en Flandre et à Bruxelles, sauf signal contraire.</li>
+</ul>
+<h3>Zone résidentielle</h3>
+<ul>
+<li>Début et fin signalés par des panneaux. <b>20 km/h</b> maximum. Un excès est sanctionné comme en agglomération.</li>
+<li>Les piétons (pas les cyclistes) peuvent utiliser toute la largeur de la voie, sans gêner le trafic sans raison. Les enfants peuvent jouer sur la chaussée.</li>
+<li>Tu ne te gares que sur un emplacement prévu, à droite ou à gauche du sens de la marche.</li>
+</ul>
+<h3>Rue réservée au jeu</h3>
+<p>Toute la largeur est réservée aux jeux. Y entrent seulement les riverains en véhicule à moteur (qui y habitent ou y ont leur garage), les véhicules prioritaires, ceux qui ont une autorisation du gestionnaire de voirie, et les cyclistes. Tous roulent <b>au pas</b>.</p>
+<h3>Zones, abords d'école et rue scolaire</h3>
+<ul>
+<li>Une <b>zone</b> est formée d'une ou plusieurs voies, avec un panneau de début et de fin. Les obligations de l'entrée valent de jour et de nuit. Avec un panneau électronique, l'obligation ne vaut que lorsqu'il est allumé.</li>
+<li><b>Zone 30</b> : un excès est sanctionné comme en agglomération.</li>
+<li><b>Abords d'école</b> : une zone 30 avec les deux panneaux « présence possible d'enfants » et « zone 30 ».</li>
+<li><b>Rue scolaire</b> : fermée à certaines heures par des barrières ou par un C3 portant la mention « rue scolaire ». Réservée aux piétons, cyclistes et speedpedelecs. Les riverains peuvent en sortir, pas y entrer. Les conducteurs autorisés roulent au pas et cèdent le passage aux piétons et cyclistes.</li>
+</ul>
+<h3>Chemins réservés</h3>
+<p>Un panneau montre quels usagers y circulent (piétons, cyclistes, cavaliers…). Si tu n'es pas repris, tu n'y entres pas, sauf pour rejoindre une propriété. 30 km/h maximum, avec une prudence accrue en présence d'enfants.</p>`,[
+["Vitesse maximale en agglomération, hors Bruxelles, sans autre signal ?",["50 km/h","30 km/h","70 km/h"],0,"50 km/h. À Bruxelles-Capitale, c'est 30 km/h."],
+["Un panneau jaune à bord rouge portant le nom d'une commune signifie…",["la limite administrative de la commune, sans effet sur le code de la route","le début d'une agglomération","la fin d'une agglomération"],0,"Il n'a aucune signification au niveau du code de la route."],
+["Vitesse maximale hors agglomération en Flandre, sans autre signal ?",["70 km/h","90 km/h","50 km/h"],0,"70 km/h en Flandre et à Bruxelles, 90 km/h en Wallonie."],
+["Dans une zone résidentielle, les piétons peuvent…",["utiliser toute la largeur de la voie publique","marcher seulement sur le trottoir","traverser seulement sur les passages"],0,"Les cyclistes, eux, n'ont pas ce droit."],
+["Dans une zone résidentielle, tu te gares…",["uniquement sur un emplacement prévu","n'importe où","sur la chaussée si elle est large"],0,"Seulement sur un emplacement prévu à cet effet."],
+["Dans une rue scolaire, les conducteurs autorisés…",["roulent au pas et cèdent le passage aux piétons et cyclistes","roulent à 30 km/h","ont la priorité"],0,"Ils roulent au pas, cèdent le passage et s'arrêtent si nécessaire."],
+["Un panneau électronique de zone 30 est éteint. La limite…",["ne s'applique pas","s'applique quand même","s'applique la nuit"],0,"Avec un panneau électronique, l'obligation ne vaut que lorsqu'il est allumé."]]],
+
+["La route pour automobiles",`
+<h3>Reconnaître une route pour automobiles</h3>
+<ul>
+<li>Un panneau indique le début, un autre la fin. Contrairement à l'autoroute, tu peux y trouver des carrefours et des feux.</li>
+<li>Les véhicules à moteur et les trains de véhicules y circulent, sauf les cyclomoteurs, les véhicules agricoles, les quadricycles sans habitacle et les trains de véhicules forains.</li>
+<li>Les sens peuvent être séparés par des marques au sol ou par une berme centrale. Si la voie a deux ou trois chaussées nettement séparées, tu n'empruntes pas celle de gauche par rapport à ton sens (sauf règle locale).</li>
+</ul>
+<h3>La vitesse</h3>
+<ul>
+<li>Hors agglomération, avec berme centrale et au moins deux bandes par sens : <b>120 km/h</b>.</li>
+<li>Hors agglomération, sens séparés seulement par des marques : <b>90 km/h</b> en Wallonie, <b>70 km/h</b> en Flandre et à Bruxelles.</li>
+<li>En agglomération : 50 km/h, ou 30 km/h en Région de Bruxelles-Capitale.</li>
+<li>Pas de vitesse minimale, mais rouler trop lentement sans raison reste une infraction.</li>
+</ul>
+<h3>Panne et accident</h3>
+<ul>
+<li>Triangle à 30 m au moins en amont, visible à 50 m (100 m sur autoroute).</li>
+<li>Si tu t'arrêtes là où le stationnement est interdit, le conducteur enfile son gilet réfléchissant avant de sortir. Ce n'est pas obligatoire pour les passagers, mais c'est recommandé.</li>
+</ul>
+<h3>Dépasser et interdits</h3>
+<ul>
+<li>Roule le plus possible sur la bande de droite et dépasse par la gauche. Dépasser par la droite est une infraction grave. Dans un embouteillage, la file de droite peut aller plus vite sans que ce soit un dépassement.</li>
+<li>Interdit : s'arrêter ou se garer sur la chaussée ou la bande d'arrêt d'urgence, rouler sur la berme centrale ou les raccordements transversaux, faire marche arrière, rouler en sens inverse, remorquer avec une attache de fortune.</li>
+</ul>`,[
+["Route pour automobiles, hors agglomération, avec berme centrale et deux bandes par sens. Vitesse maximale ?",["120 km/h","90 km/h","70 km/h"],0,"Berme centrale et deux bandes par sens : 120 km/h."],
+["Route pour automobiles, hors agglomération, sens séparés par des marques, en Wallonie. Vitesse maximale ?",["90 km/h","70 km/h","120 km/h"],0,"90 km/h en Wallonie, 70 km/h en Flandre et à Bruxelles."],
+["Une route pour automobiles peut comporter…",["des carrefours et des feux","aucun carrefour","seulement des feux"],0,"Contrairement à l'autoroute, elle peut avoir des carrefours et des feux."],
+["Quel véhicule est interdit sur une route pour automobiles ?",["Un cyclomoteur","Une voiture","Une camionnette"],0,"Cyclomoteurs, véhicules agricoles, quadricycles sans habitacle et trains forains sont exclus."],
+["Y a-t-il une vitesse minimale sur une route pour automobiles ?",["Non, mais rouler trop lentement sans raison est une infraction","Oui, 70 km/h","Oui, 50 km/h"],0,"Il n'y a pas de minimum, contrairement à l'autoroute."]]],
+
+["Croiser et passages étroits",`
+<h3>Croiser par la droite</h3>
+<ul>
+<li>Deux véhicules qui se rencontrent en sens opposé se croisent : chacun serre à <b>droite</b>, sur la bande de droite s'il y en a plusieurs.</li>
+<li>Si la chaussée est trop étroite, tu peux emprunter l'accotement de plain-pied, sans mettre en danger les usagers qui s'y trouvent.</li>
+<li>Tu ne peux pas rouler au-delà d'une <b>large ligne blanche</b> au bord de la chaussée (bord fictif) : cette partie est réservée à l'arrêt et au stationnement. Tu n'empruntes pas non plus la piste cyclable pour croiser. La bande cyclable suggérée, elle, fait partie de la chaussée.</li>
+<li>Distance latérale suffisante : au moins <b>1 m</b> pour croiser un cycliste en agglomération, <b>1,5 m</b> hors agglomération.</li>
+<li>Un tram se croise aussi par la droite. Par la gauche seulement si le passage à droite est trop étroit, si un véhicule est garé à droite ou s'il y a un obstacle, et sans gêner personne.</li>
+<li>Carrefour sans flèches au sol : croisement par la droite. Avec des flèches tracées : tu suis les flèches.</li>
+</ul>
+<h3>Rétrécissement de la chaussée</h3>
+<ul>
+<li>Un signal de danger annonce que la chaussée devient plus étroite.</li>
+<li>Sans panneau de priorité : celui qui rencontre l'obstacle de son côté cède le passage. Si l'obstacle est du côté opposé, tu passes en premier.</li>
+<li>Avec panneaux : le <b>rond blanc à bord rouge</b> (avec flèches) oblige à céder le passage aux conducteurs venant en sens opposé. Le signal <b>rectangulaire à flèches</b> donne la priorité. Ne les confonds pas avec le signal de danger « circulation admise dans les deux sens ».</li>
+</ul>
+<h3>Voie à sens unique</h3>
+<ul>
+<li>Tu n'y croises personne, sauf si un panneau additionnel permet aux cyclistes de rouler en sens inverse : laisse-leur de la place.</li>
+<li>Tu roules à droite, sauf exception. Pour tourner à gauche, place-toi le plus à gauche possible (dans la bande la plus à gauche s'il y en a plusieurs).</li>
+<li>Stationnement à droite ou à gauche de la rue, à condition de laisser au moins <b>3 m</b> libres entre les véhicules.</li>
+</ul>`,[
+["Une large ligne blanche borde la chaussée. Peux-tu rouler au-delà pour croiser ?",["Non, cette partie est réservée à l'arrêt et au stationnement","Oui, si personne n'arrive","Oui, la nuit"],0,"Au-delà du bord fictif de la chaussée, on ne croise pas."],
+["Quelle distance latérale laisses-tu pour croiser un cycliste hors agglomération ?",["1,5 m","1 m","50 cm"],0,"1 m en agglomération, 1,5 m hors agglomération."],
+["Rétrécissement sans panneau de priorité. L'obstacle est de ton côté. Tu…",["cèdes le passage","passes en premier","klaxonnes"],0,"Celui qui rencontre l'obstacle de son côté cède le passage."],
+["En principe, tu croises un tram par…",["la droite","la gauche","le côté le plus large"],0,"Par la gauche seulement si la droite est impossible."],
+["Rue à sens unique avec stationnement des deux côtés : il doit rester au moins…",["3 m libres entre les véhicules","1 m","50 cm"],0,"Au moins 3 m, pour que les autres puissent passer."],
+["Un rond blanc à bord rouge avec flèches devant un passage étroit signifie…",["tu cèdes le passage aux conducteurs venant en sens opposé","tu as la priorité","tu dois t'arrêter"],0,"C'est le signal d'obligation de céder le passage dans un passage étroit."]]],
+
+["Arrêt et stationnement : où et quand",`
+<h3>Définitions</h3>
+<ul>
+<li><b>Arrêt</b> : le temps nécessaire pour faire monter ou descendre des personnes, ou pour charger ou décharger des choses (parfois plusieurs minutes, par exemple pour un déménagement).</li>
+<li><b>Stationnement</b> : rester immobile au-delà de ce temps.</li>
+<li>Arrêt et stationnement sont des actes <b>volontaires</b>. Si tu es contraint de t'immobiliser (feu rouge, embouteillage, céder le passage), ton véhicule est <b>immobilisé</b> : ce n'est ni un arrêt ni un stationnement.</li>
+<li>Un véhicule <b>en panne</b> n'est ni à l'arrêt ni en stationnement : les signaux d'arrêt et de stationnement ne le concernent pas. S'il ne peut pas être rangé en sécurité, signale-le avec le triangle.</li>
+</ul>
+<h3>Où te garer, dans l'ordre</h3>
+<ol>
+<li>Sur l'accotement de plain-pied ou la bande de stationnement, s'il y a de la place (hors agglomération : sur la bande de stationnement et sur tous les accotements).</li>
+<li>Si l'accotement est trop étroit : en partie dessus, en laissant au moins 1,5 m de passage aux piétons quand il n'y a pas de trottoir.</li>
+<li>Sinon sur la chaussée : le plus près du bord, à droite dans le sens de la marche, jamais en double file, avec au moins 1 m entre deux voitures garées.</li>
+</ol>
+<p>Dans une rue à sens unique, tu peux te garer à droite comme à gauche (même chose dans une zone résidentielle ou de rencontre, sur les emplacements prévus).</p>
+<h3>Interdit sur la chaussée et sur l'accotement</h3>
+<ul>
+<li>Sur un passage pour piétons ou pour cyclistes.</li>
+<li>Dans un carrefour sans feux : à moins de 5 m du bord de la voie transversale.</li>
+<li>À moins de 20 m avant des feux de signalisation (dans ou hors d'un carrefour) et avant des signaux routiers.</li>
+<li>Exception pour ces deux dernières règles : le bord inférieur du signal ou du feu est à 2 m de haut au moins et ton véhicule, chargement compris, ne dépasse pas 1,65 m.</li>
+<li>Partout où ton véhicule met les autres en danger ou les gêne sans raison valable.</li>
+</ul>
+<h3>Autres lieux interdits</h3>
+<ul>
+<li>Trottoir, piste cyclable, dispositif surélevé (sauf marquage ou signal contraire), marques en damier, zone d'évitement, îlot directionnel.</li>
+<li>Voies de tram : stationnement interdit, et arrêt interdit s'il gêne le tram.</li>
+<li>Passage à niveau : infraction du 4e degré.</li>
+<li>Autoroute et route pour automobiles : bandes de circulation, accès, sorties et bande d'arrêt d'urgence.</li>
+</ul>
+<h3>Interdit sur la chaussée seulement</h3>
+<ul>
+<li>À moins de 5 m en deçà d'un passage pour piétons ou pour cyclistes et cyclomoteurs à deux roues.</li>
+<li>Sous un pont (sur l'accotement ou une bande de stationnement, c'est permis), dans un tunnel, près du sommet d'une côte, avant ou dans un virage dangereux.</li>
+</ul>`,[
+["Un feu rouge t'oblige à t'immobiliser. Ton véhicule est…",["immobilisé, ni à l'arrêt ni en stationnement","en stationnement","en panne"],0,"Une immobilisation imposée n'est ni un arrêt ni un stationnement."],
+["En agglomération, il y a de la place sur l'accotement de plain-pied. Tu…",["t'y gares","te gares sur la chaussée","te gares en double file"],0,"On se gare d'abord sur l'accotement s'il y a de la place."],
+["Garé sur la chaussée, quelle distance minimale entre deux voitures ?",["1 m","50 cm","3 m"],0,"Au moins 1 m entre deux voitures garées."],
+["Peut-on se garer en double file ?",["Non","Oui, brièvement","Oui, la nuit"],0,"L'arrêt et le stationnement en double file sont interdits."],
+["Dans un carrefour sans feux, où est-il interdit de s'arrêter ou de stationner ?",["À moins de 5 m du bord de la voie transversale","À 30 m du carrefour","Devant une maison"],0,"Pas d'arrêt ni de stationnement à moins de 5 m du bord de la voie transversale."],
+["Peut-on s'arrêter sur la chaussée dans un tunnel ?",["Non, c'est interdit","Oui, deux minutes","Oui, si les feux sont allumés"],0,"Arrêt et stationnement y sont interdits sur la chaussée."],
+["Stationner sur un passage à niveau est…",["interdit, c'est une infraction du 4e degré","toléré brièvement","permis la nuit"],0,"Arrêt et stationnement y sont interdits : infraction du 4e degré."]]],
+
+["Les piétons",`
+<h3>Qui est un piéton ?</h3>
+<ul>
+<li>Un <b>usager</b> est une personne qui utilise la voie publique : piéton ou conducteur (de véhicule ou d'animaux). Un vélo, une voiture ou un cheval n'est pas un usager.</li>
+<li>Est un piéton : celui qui marche, qui pousse un caddie ou une brouette, qui se déplace en fauteuil roulant ou avec un engin qui ne dépasse pas l'allure du pas, et celui qui <b>pousse un vélo ou un cyclomoteur</b> (sur le trottoir).</li>
+<li>Un cavalier, ou celui qui accompagne un cheval, n'est pas un piéton : c'est un conducteur. Celui qui pousse une moto aussi : il porte son casque et il a la priorité de droite s'il vient de droite.</li>
+<li>Le piéton marche sur le trottoir, le sentier ou l'accotement. S'il n'y en a pas, il peut marcher sur la piste cyclable (de préférence) ou sur la chaussée.</li>
+</ul>
+<h3>Le passage pour piétons</h3>
+<ul>
+<li>Un signal d'indication bleu se trouve près du passage, et un signal de danger rouge environ 150 m avant. S'il y a un passage à moins de 20 m, le piéton doit l'emprunter.</li>
+<li>Les piétons sur le passage, ou qui ont l'intention de l'emprunter, ont <b>toujours la priorité</b>. Si un obstacle te cache la vue (véhicule garé, conteneur, file en sens inverse), imagine un piéton et adapte ta vitesse.</li>
+<li>Tu ne dépasses jamais un véhicule qui ralentit ou s'arrête devant le passage : infraction grave.</li>
+<li>Arrêt et stationnement interdits sur le passage, et sur la chaussée jusqu'à 5 m avant (idem pour un passage pour cyclistes). Après le passage, tu peux t'arrêter ou stationner, sauf signal ou marquage contraire.</li>
+</ul>
+<h3>Sans passage pour piétons</h3>
+<ul>
+<li>Le piéton cède le passage et traverse perpendiculairement à l'axe, sans s'attarder.</li>
+<li>Mais le conducteur ne met jamais un piéton en danger. Redouble de prudence avec les enfants, les personnes âgées et les personnes handicapées (aveugles, fauteuils) : ralentis et arrête-toi si nécessaire.</li>
+</ul>
+<h3>Zone piétonne, arrêts de bus et transport scolaire</h3>
+<ul>
+<li><b>Zone piétonne</b> : les conducteurs autorisés roulent au pas, cèdent le passage aux piétons et s'arrêtent si nécessaire.</li>
+<li>Tram ou bus arrêté sur la chaussée, sans refuge près de l'arrêt : le conducteur qui circule du côté de l'embarquement ou du débarquement s'arrête, laisse traverser les voyageurs, puis repart à vitesse modérée.</li>
+<li>Transport scolaire : panneau jaune à l'avant et à l'arrière. S'il allume ses clignotants, des enfants montent ou descendent : réduis ta vitesse et arrête-toi si nécessaire.</li>
+</ul>`,[
+["Une personne pousse son vélo sur le trottoir. C'est…",["un piéton","un conducteur","un cavalier"],0,"Celui qui pousse un vélo ou un cyclomoteur est un piéton."],
+["Une personne accompagne un cheval. C'est…",["un conducteur","un piéton","un passager"],0,"Un cavalier ou celui qui accompagne un cheval est un conducteur."],
+["Un piéton est sur un passage pour piétons. Tu…",["lui cèdes le passage","passes avant lui","le klaxonnes"],0,"Les piétons sur le passage ont toujours la priorité."],
+["Où peux-tu stationner par rapport à un passage pour piétons ?",["Après le passage, sauf signal ou marquage contraire","Sur le passage","À 2 m avant le passage"],0,"Pas de stationnement sur le passage ni à moins de 5 m avant."],
+["Un piéton traverse hors passage pour piétons. Qui doit céder en principe ?",["Le piéton, mais le conducteur ne le met jamais en danger","Le conducteur","Personne"],0,"Le piéton doit céder, mais tu dois rester prudent."],
+["Dans une zone piétonne, les conducteurs autorisés roulent…",["au pas","à 30 km/h","à 20 km/h"],0,"Ils roulent au pas et cèdent le passage aux piétons."],
+["Un bus est arrêté sur la chaussée, sans refuge. Tu circules du côté où les voyageurs montent. Tu…",["t'arrêtes et laisses traverser les voyageurs","passes lentement","klaxonnes"],0,"Tu t'arrêtes, laisses traverser, puis tu repars à vitesse modérée."]]],
+
+["Stationnement interdit, arrêt permis, stationnement alterné",`
+<h3>Arrêt permis, stationnement interdit</h3>
+<ul>
+<li>S'il n'y a pas 1 m libre devant et derrière ta voiture.</li>
+<li>À moins de 15 m de part et d'autre d'un panneau d'arrêt de tram, bus ou trolleybus.</li>
+<li>Devant l'accès carrossable d'une propriété ou devant une porte de garage. L'occupant peut s'y garer s'il y a reproduit visiblement sa plaque.</li>
+<li>Là où tu empêches l'accès à des emplacements situés hors de la chaussée, ou un véhicule de quitter son emplacement.</li>
+<li>Devant un obstacle qui force des cyclistes, des cyclomoteurs à deux roues ou des piétons à passer sur la chaussée.</li>
+<li>Là où la chaussée est trop étroite : il faut laisser au moins 3 m de passage libre.</li>
+<li>Sur une chaussée à double sens, du côté opposé à un véhicule déjà arrêté ou garé, si cela gêne le croisement de deux autres véhicules.</li>
+<li>Hors agglomération, sur la chaussée d'une route prioritaire : tu peux t'y arrêter, ou te garer sur l'accotement. En agglomération, c'est permis.</li>
+<li>Sur une chaussée divisée en bandes de circulation, sauf signalisation contraire. Sur la bande de stationnement ou l'accotement le long de ces bandes, c'est permis.</li>
+<li>Sur la chaussée centrale d'une voie publique à trois chaussées, sauf signal contraire.</li>
+<li>Hors agglomération, du côté gauche d'une voie à deux chaussées. En agglomération, tu peux te garer à gauche, sur l'accotement de plain-pied ou dans la bande de stationnement.</li>
+<li>Le long d'une <b>ligne jaune discontinue</b> au bord de la chaussée. Une ligne jaune continue, ou d'une autre couleur, n'interdit rien.</li>
+<li>Sur les emplacements réservés aux personnes handicapées.</li>
+</ul>
+<h3>Signaux d'interdiction</h3>
+<ul>
+<li>Rond barré <b>d'une diagonale</b> : stationnement interdit, de ce côté, sur la chaussée et l'accotement, du signal jusqu'au carrefour suivant.</li>
+<li>Rond barré <b>de deux diagonales</b> : arrêt et stationnement interdits, de ce côté, du signal jusqu'au carrefour suivant.</li>
+<li>Flèche sous le signal : vers le haut = l'interdiction commence après le signal. Vers le bas = elle s'applique jusqu'au signal. Haut et bas = de part et d'autre du signal.</li>
+<li>Un panneau additionnel « 20 m » : l'interdiction commence au signal et vaut sur 20 m.</li>
+</ul>
+<h3>Stationnement alterné semi-mensuel</h3>
+<ul>
+<li>Signal E5 : stationnement interdit de ce côté du <b>1er au 15</b> du mois. Signal E7 : interdit du <b>16 à la fin du mois</b>. Tu te gares de l'autre côté.</li>
+<li>L'interdiction vaut pour la chaussée, pas pour l'accotement.</li>
+<li>Tu changes de côté le dernier jour de la période, entre <b>19 h 30 et 20 h</b>.</li>
+<li>Attention aux fins de mois courtes : 30/04, 30/06, 30/09 et 30/11 sont les derniers jours de ces mois.</li>
+</ul>`,[
+["Tu t'arrêtes à moins de 15 m d'un panneau d'arrêt de bus pour faire monter un passager. C'est…",["permis","interdit","permis seulement la nuit"],0,"L'arrêt est permis, c'est le stationnement qui est interdit."],
+["Le long d'une ligne jaune discontinue au bord de la chaussée, tu peux…",["t'arrêter mais pas stationner","stationner","ni t'arrêter ni stationner"],0,"La ligne jaune discontinue interdit le stationnement, pas l'arrêt."],
+["Une ligne jaune continue au bord de la chaussée…",["n'interdit rien","interdit le stationnement","interdit l'arrêt"],0,"Seule la ligne jaune discontinue interdit le stationnement."],
+["Un signal rond barré d'une seule diagonale signifie…",["stationnement interdit de ce côté jusqu'au carrefour suivant","arrêt et stationnement interdits","stationnement obligatoire"],0,"Deux diagonales interdiraient aussi l'arrêt."],
+["Une flèche vers le bas sous un signal d'interdiction signifie que l'interdiction s'applique…",["jusqu'au signal","après le signal","de part et d'autre du signal"],0,"Flèche vers le bas : jusqu'au signal."],
+["Le signal du 1er au 15 interdit le stationnement de ton côté. Tu déplaces ta voiture…",["le 15, entre 19 h 30 et 20 h","le 16 à 8 h","le 1er à minuit"],0,"On change de côté le dernier jour de la période, entre 19 h 30 et 20 h."],
+["Devant une porte de garage, tu peux…",["t'arrêter, mais pas stationner (sauf l'occupant avec sa plaque visible)","stationner","ni t'arrêter ni stationner"],0,"L'arrêt est permis, le stationnement interdit."]]],
+
+["Dépasser par la gauche : la méthode",`
+<h3>Dépasser ou contourner ?</h3>
+<ul>
+<li><b>Dépasser</b> : un véhicule <b>en mouvement</b>, qui roule moins vite que la vitesse maximale. On le dépasse par la gauche.</li>
+<li><b>Contourner</b> : un véhicule <b>à l'arrêt</b> ou en stationnement. Ce n'est pas un dépassement : tu passes simplement devant, c'est un obstacle.</li>
+</ul>
+<h3>Avant de dépasser, six questions</h3>
+<ol>
+<li>Le véhicule devant roule-t-il moins vite que la vitesse maximale ?</li>
+<li>Puis-je le dépasser vite sans dépasser la vitesse autorisée ?</li>
+<li>Un véhicule arrive-t-il en sens inverse ?</li>
+<li>Un véhicule derrière moi est-il déjà en train de me dépasser ?</li>
+<li>Y a-t-il assez de place pour me rabattre à droite ensuite ?</li>
+<li>Un signal ou une règle interdit-il de dépasser ici ?</li>
+</ol>
+<h3>Les étapes, dans l'ordre</h3>
+<ol>
+<li>Contrôle le rétroviseur et l'angle mort, puis mets le clignotant gauche.</li>
+<li>Déplace-toi à gauche, puis <b>éteins</b> le clignotant : on ne le garde pas pendant tout le dépassement.</li>
+<li>Dépasse rapidement.</li>
+<li>Une fois dépassé, mets le clignotant droit.</li>
+<li>Reviens à droite après contrôle du rétroviseur droit et de l'angle mort.</li>
+</ol>
+<h3>Distance latérale</h3>
+<ul>
+<li>Véhicule : une distance « suffisante ».</li>
+<li>Piéton, cycliste ou cyclomotoriste : au moins <b>1 m</b> en agglomération, au moins <b>1,5 m</b> hors agglomération (sur la chaussée comme sur la piste cyclable).</li>
+</ul>
+<h3>Deux cas où l'on dépasse par la droite</h3>
+<ul>
+<li>Le véhicule devant a mis son clignotant gauche et s'est déjà déporté pour tourner : tu le dépasses par la droite, sans franchir la large ligne blanche (bord fictif) ni rouler sur la piste cyclable. L'accotement de plain-pied est possible si tu ne mets personne en danger.</li>
+<li><b>Tram</b> : on le dépasse par la droite. Si les rails sont au milieu de la chaussée et qu'un voyageur descend, tu ralentis et tu t'arrêtes si nécessaire, sauf s'il y a une bordure surélevée à côté des rails. Par la gauche seulement si la droite est impossible (passage étroit, travaux, véhicule garé) ou si les rails sont sur la partie droite de la chaussée.</li>
+</ul>
+<h3>Ce qui n'est pas un dépassement</h3>
+<ul>
+<li>Une file qui va un peu plus vite qu'une autre. Tu peux choisir ta file : sur une chaussée à double sens avec au moins quatre bandes (seulement tes bandes), sur une chaussée à sens unique, ou sous des signaux lumineux de bande (croix rouge, flèche verte vers le bas, flèche orange oblique).</li>
+<li>En agglomération, sur une voie à sens unique à bandes, ou à double sens avec au moins quatre bandes dont deux par sens : tu choisis la bande qui convient à ta destination.</li>
+<li>Signaux d'indication de direction : les règles de dépassement s'appliquent après ces signaux, pas avant.</li>
+<li>Motos dans un embouteillage : entre les files, 50 km/h maximum, au plus 20 km/h plus vite que les véhicules dépassés (sur autoroute : entre les deux bandes de gauche).</li>
+</ul>`,[
+["Un véhicule est garé. Le passer, c'est…",["un contournement, pas un dépassement","un dépassement","interdit"],0,"On ne dépasse qu'un véhicule en mouvement."],
+["Pendant un dépassement, ton clignotant gauche…",["s'éteint une fois que tu es à gauche","reste allumé pendant tout le dépassement","ne sert à rien"],0,"Le clignotant sert seulement au déplacement latéral."],
+["Distance latérale minimale pour dépasser un cycliste hors agglomération ?",["1,5 m","1 m","50 cm"],0,"1,5 m hors agglomération."],
+["Distance latérale minimale pour dépasser un cycliste en agglomération ?",["1 m","1,5 m","2 m"],0,"1 m en agglomération."],
+["Le véhicule devant toi a mis son clignotant gauche et s'est déporté pour tourner. Tu le dépasses par…",["la droite","la gauche","tu t'arrêtes obligatoirement"],0,"C'est un des deux cas où l'on dépasse par la droite."],
+["En principe, tu dépasses un tram par…",["la droite","la gauche, toujours","jamais"],0,"Par la gauche seulement si la droite est impossible."],
+["Dans un embouteillage, une file avance plus vite que l'autre. C'est…",["pas un dépassement","un dépassement interdit","une infraction grave"],0,"Une file un peu plus rapide n'est pas un dépassement."]]],
+
+["Conducteurs, usagers et signaux d'accès interdit",`
+<h3>Usager ou conducteur ?</h3>
+<ul>
+<li><b>Usager</b> : toute personne qui utilise la voie publique, piétons et conducteurs de véhicules, motorisés ou non.</li>
+<li><b>Conducteur</b> : celui qui conduit un véhicule (sans moteur ou à moteur) et celui qui mène ou surveille des animaux de trait, de charge ou une monture. Le mot ne comprend pas les piétons.</li>
+<li>Exemples de conducteurs : un cavalier, la personne qui marche à côté de lui, un fermier qui accompagne ses vaches, celui qui pousse une charrette à bras, celui qui conduit un chariot attelé.</li>
+<li>Pousser un cyclomoteur en panne ou un vélo crevé : tu es un <b>piéton</b>. Pas de permis, pas de casque, et tu marches sur le trottoir.</li>
+<li>Pousser une <b>moto</b> (ou une voiture) : tu es un <b>conducteur</b>. Permis, casque, et tu marches sur la chaussée.</li>
+</ul>
+<h3>Des règles pour certains seulement</h3>
+<ul>
+<li>Certains signaux ne visent qu'une catégorie : piétons, cycles, cyclomoteurs, motos, transport de choses, autocars, véhicules attelés. Le panneau d'accès interdit montre alors le symbole concerné.</li>
+<li>Avec le permis B, tu conduis des véhicules de <b>3 500 kg de MMA maximum</b> : voiture, voiture mixte, minibus, camionnette.</li>
+</ul>`,[
+["Qui est un usager de la route ?",["Toute personne qui utilise la voie publique, piétons compris","Seulement les conducteurs","Seulement les piétons"],0,"Usagers = piétons et conducteurs."],
+["Un fermier accompagne ses vaches sur la route. Il est…",["un conducteur","un piéton","un passager"],0,"Celui qui mène ou surveille des animaux est un conducteur."],
+["Quelqu'un pousse sa moto sur la route. C'est…",["un conducteur","un piéton","un passager"],0,"Il doit avoir un permis, porter un casque et marcher sur la chaussée."],
+["Tu pousses ton vélo crevé. Où marches-tu ?",["Sur le trottoir","Sur la chaussée","Sur la piste cyclable, en roulant"],0,"Tu es un piéton : tu marches sur le trottoir."],
+["Avec le permis B, tu peux conduire…",["une camionnette de 3 500 kg de MMA maximum","un camion de 7 500 kg","un autocar"],0,"Voiture, voiture mixte, minibus ou camionnette jusqu'à 3 500 kg de MMA."]]],
+
+["Éco-conduite et carburant",`
+<h3>Faut-il vraiment prendre la voiture ?</h3>
+<ul>
+<li>Jusqu'à environ 1 km : à pied. De 1 à 10 km : à vélo. Sinon, transports en commun si possible.</li>
+<li>Les petits trajets avec un moteur froid consomment plus et abiment le moteur : sois doux tant qu'il n'est pas à température.</li>
+</ul>
+<h3>Réduire la consommation</h3>
+<ul>
+<li><b>Changer de rapport</b> vers 2 500 tours en essence, 2 000 en diesel. Tu dépasses ces régimes pour t'insérer sur une voie rapide ou dépasser vite.</li>
+<li>Le <b>poids</b> augmente la consommation : vide le coffre, ne garde pas une remorque inutilement.</li>
+<li><b>Coffre de toit et galerie</b> augmentent la résistance à l'air : ne roule pas avec un coffre vide ou avec les barres. Un porte-vélo à l'arrière consomme moins qu'un porte-vélo sur le toit.</li>
+<li><b>Vitres</b> à moitié ouvertes : environ 5 % de plus. Mieux vaut fermer et ventiler. Si tu ouvres celle du conducteur, ouvre un peu celle du passager arrière droit pour éviter l'effet « parachute ».</li>
+<li><b>Courant</b> : climatisation, ventilateur, lunette arrière chauffante, sièges chauffants consomment du carburant. Coupe-les s'ils sont inutiles.</li>
+<li><b>Pneus</b> : respecte la pression du constructeur, un peu plus pour une charge lourde ou un long trajet. Pas de pneus usés, jamais recreusés.</li>
+<li><b>Moteur</b> mal réglé ou filtre à air sale : plus de consommation. Fais entretenir ta voiture.</li>
+<li>Le <b>catalyseur</b> réduit la pollution des gaz d'échappement.</li>
+<li><b>Couper le moteur</b> quand tu t'immobilises longtemps (file, passage à niveau) : le code le prévoit. La règle des « 30 secondes » n'est pas dans la loi.</li>
+</ul>
+<h3>Carburants et écologie</h3>
+<ul>
+<li>Le GPL est le carburant le plus écologique. L'essence est plus écologique que le diesel. Le diesel sans soufre est plus écologique que le diesel ordinaire.</li>
+<li>Le mazout de chauffage est coloré en rouge et taxé autrement : rouler au rouge est interdit.</li>
+<li><b>Zone de basses émissions</b> : zone où certains véhicules trop polluants sont interdits, avec des panneaux de début et de fin. Les conditions varient selon les villes : vérifie avant d'y aller.</li>
+<li><b>Norme EURO</b> et éco-score (de 0 à 100, plus c'est haut, mieux c'est) : ils figurent sur le certificat d'immatriculation.</li>
+</ul>
+<h3>Conduite défensive</h3>
+<p>Regarde au-delà du conducteur devant toi et anticipe les erreurs des autres. Relâcher l'accélérateur à temps (frein moteur) économise du carburant et des plaquettes, et réduit les distances d'arrêt.</p>`,[
+["À quel régime conseillé passe-t-on au rapport supérieur avec un moteur à essence ?",["2 500 tours","2 000 tours","4 000 tours"],0,"2 500 tours en essence."],
+["Et avec un moteur diesel ?",["2 000 tours","2 500 tours","3 500 tours"],0,"2 000 tours en diesel."],
+["Quel carburant est le plus écologique ?",["Le GPL","Le diesel","L'essence"],0,"Le GPL est le plus écologique, puis l'essence, puis le diesel."],
+["Rouler avec du mazout de chauffage rouge est…",["interdit","autorisé","autorisé la nuit"],0,"Rouler au rouge est interdit."],
+["Où fixer un porte-vélo pour consommer moins ?",["À l'arrière de la voiture","Sur le toit","Sur le capot"],0,"À l'arrière : moins de résistance à l'air."],
+["Tu t'immobilises longtemps (file, passage à niveau). Que prévoit le code ?",["Couper le moteur","Laisser tourner le moteur","Mettre la climatisation"],0,"Le code prévoit de couper le moteur."]]]
+];
+
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),app=$("#app");
+let pool=[],i=0,sc=0,miss=[],done={},t0=0,tmr=0;try{done=JSON.parse(localStorage.getItem("pc")||"{}")}catch(e){}
+const bx=()=>{try{return +localStorage.getItem("pcx")||0}catch(e){return 0}};
+const wire=()=>$$(".back").forEach(b=>b.onclick=home),
+ back=`<button class="back">‹ Retour au cours</button>`,
+ on=(s,f)=>{const e=$(s);if(e)e.onclick=f};
+
+function home(){clearInterval(tmr);
+ app.innerHTML=`<p>Tu pars de zéro ? Parfait. Suis les leçons dans l'ordre : chacune explique d'abord, puis te pose quelques questions.</p>`+
+ L.map((l,k)=>`<button class="item" data-k="${k}"><b>${k+1}</b><span>${l[0]}</span><em>${done[k]!=null?done[k]+"/"+l[2].length:""}</em></button>`).join("")+
+ `<button class="item" data-k="-1"><b>★</b><span>Examen blanc : 50 questions, seuil de 41</span><em>${bx()?"Meilleur : "+bx()+"/50":""}</em></button><p class="mut">Ce cours suit le code de la route actuel : d'après les sources trouvées, le nouveau Code de la voie publique n'arrive qu'en 2027. L'examen théorique compte 50 questions. Résumé non officiel : complète avec codedelaroute.be et les exercices de permisdeconduire-online.be.</p><button class="back" id="rs">Effacer ma progression</button>`;
+ $$(".item").forEach(b=>b.onclick=()=>{const k=+b.dataset.k;k<0?quiz(-1):lesson(k)});
+ on("#rs",()=>{done={};try{localStorage.removeItem("pc");localStorage.removeItem("pcx")}catch(e){}home()});
+}
+function lesson(k){
+ const l=L[k];
+ app.innerHTML=back+`<h2>${k+1}. ${l[0]}</h2>${l[1]}<button class="go" id="t">Je me teste</button>`;
+ on("#t",()=>quiz(k));wire();scrollTo(0,0);
+}
+function quiz(k){
+ const all=L.flatMap(l=>l[2]);
+ pool=(k<0?all:L[k][2]).slice().sort(()=>Math.random()-.5).slice(0,k<0?50:99);
+ i=0;sc=0;miss=[];t0=Date.now();clearInterval(tmr);ask(k);
+}
+function ask(k){
+ const q=pool[i],ord=[...q[1].keys()].sort(()=>Math.random()-.5);
+ app.innerHTML=back+`<div class="bar"><span style="width:${i/pool.length*100}%"></span></div><p class="mut">Question ${i+1} sur ${pool.length}${k<0?`, <span id="tm"></span>`:""}</p><h2>${q[0]}</h2>`+
+ ord.map(j=>`<button class="opt" data-j="${j}">${q[1][j]}</button>`).join("")+`<div id="fb"></div>`;
+ $$(".opt").forEach(b=>b.onclick=()=>pick(k,+b.dataset.j));wire();
+ if(k<0){clearInterval(tmr);const f=()=>{const s=Math.floor((Date.now()-t0)/1000),e=$("#tm");if(e)e.textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};f();tmr=setInterval(f,1000)}
+}
+function pick(k,j){
+ const q=pool[i],ok=j==q[2];
+ sc+=ok;if(!ok)miss.push(q);
+ $$(".opt").forEach(b=>{b.disabled=true;const n=+b.dataset.j;if(n==q[2])b.classList.add("ok");else if(n==j)b.classList.add("ko")});
+ $("#fb").innerHTML=`<p class="note ${ok?"y":"n"}"><b>${ok?"Bonne réponse.":"Pas tout à fait."}</b> ${q[3]}</p><button class="go" id="nx">${i+1<pool.length?"Question suivante":"Voir le résultat"}</button>`;
+ on("#nx",()=>{i++;i<pool.length?ask(k):end(k)});
+}
+function end(k){
+ clearInterval(tmr);const n=pool.length,nx=k<0?null:(k+1<L.length?k+1:-1),sec=Math.floor((Date.now()-t0)/1000),tt=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0"),ok=sc>=41;
+ if(k>=0)done[k]=sc;else try{if(sc>bx())localStorage.setItem("pcx",sc)}catch(e){}
+ try{localStorage.setItem("pc",JSON.stringify(done))}catch(e){}
+ app.innerHTML=back+`<h2>Score : ${sc} sur ${n}</h2>${k<0?`<p><b>${ok?"Réussi : tu atteins le seuil de 41 sur 50.":"Pas encore : il faut 41 sur 50 pour réussir."}</b> Durée : ${tt}.</p>`:""}<p>${sc==n?"Parfait !":sc/n>=.7?"Très bien, tu as compris l'essentiel.":"Relis la leçon, puis réessaie : c'est comme ça qu'on apprend."}</p>`+
+ (miss.length?`<h3>À revoir</h3><ul>`+miss.map(q=>`<li><b>${q[0]}</b><br>Réponse : ${q[1][q[2]]}. ${q[3]}</li>`).join("")+`</ul>`:"")+
+ (nx!==null?`<button class="go" id="n2">${nx<0?"Passer à l'examen blanc":"Leçon suivante"}</button>`:`<button class="go" id="n2">Refaire un examen blanc</button>`)+
+ (k>=0?`<button class="chip" id="rl">Revoir la leçon</button>`:"");
+ on("#n2",()=>nx===null?quiz(-1):nx<0?quiz(-1):lesson(nx));on("#rl",()=>lesson(k));wire();scrollTo(0,0);
+}
+home();
+</script>
+</body>
+</html>
